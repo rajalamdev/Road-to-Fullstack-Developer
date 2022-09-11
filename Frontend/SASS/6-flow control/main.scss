@@ -1,0 +1,14 @@
+@use 'modules/mixin';
+
+* {
+    list-style: none;
+    @include mixin.theme($light-mode: false);
+}
+
+.gradient {
+    @include mixin.gradient();
+}
+
+.social {
+    @include mixin.socials();
+}

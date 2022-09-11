@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+:root {
+    --primary-color: white;
+    --secondary-color: #393c41;
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: 'M PLUS 1', sans-serif;
+}
+
+/* body::-webkit-scrollbar {
+    width: 0;
+} */
+
+header {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+
+header .report{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+}
+
+header .report a{
+    font-size: 14px;
+    font-family: 'M PLUS 1', sans-serif;
+    text-align: start;
+    color: var(--secondary-color);
+    position: relative;
+}
+
+header .report a::after {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: var(--secondary-color);
+    height: 1px;
+}
+
+header .report a:hover::after {
+    height: 2px;
+}
+
+header nav {
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 34px;    
+}
+
+header nav .brand-logo svg {
+    width: 120px;
+}
+
+header nav .nav-links{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-left: 90px;
+}
+
+header nav .nav-links a{
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 15px;
+    position: relative;
+}
+
+header nav .nav-links a:hover::after {
+    display: block;
+    content: '';
+    position: absolute;
+    background-color: rgba(100, 100, 100, .1);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+}
+
+header nav .menus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header nav .menus a{
+    cursor: pointer;
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+    padding: 5px 15px;
+}
+
+header nav .menus a:hover::after {
+    display: block;
+    content: '';
+    position: absolute;
+    background-color: rgba(100, 100, 100, .1);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+}
+
+.backdrop{
+   display: none; 
+   height: 100vh;
+   width: 100vw;
+   position: fixed;
+   backdrop-filter: blur(4px);
+   z-index: 1000;
+   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.backdrop.reveal {
+    display: block;
+}
+
+aside {
+    display: none;
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1001;
+    background-color: var(--primary-color);
+    overflow: auto;
+}
+
+aside.reveal {
+    display: block;
+}
+
+aside .close-btn {
+    position: sticky;
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--primary-color);
+    top: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 1000;
+}
+
+aside .close-btn svg {
+    padding: 8px;
+    width: 24px; 
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+aside .close-btn svg:hover {
+    background-color: rgba(100, 100, 100, .1);
+}
+
+aside .nav-links {
+    margin: 0 35px 40px 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+aside .nav-links div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+aside .nav-links a {
+    position: relative;
+    padding: 8px 16px;
+}
+
+aside .nav-links a:hover::after {
+    display: block;
+    content: '';
+    position: absolute;
+    background-color: rgba(100, 100, 100, .1);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 40px;
+}
+
+aside .nav-links .language, 
+aside .nav-links .more {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    cursor: pointer;
+}
+
+aside .nav-links .language:hover::after,
+aside .nav-links .more:hover:after {
+    display: block;
+    content: '';
+    position: absolute;
+    background-color: rgba(100, 100, 100, .1);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 40px;
+}
+
+aside .nav-links .language a:after, 
+aside .nav-links .more a:after {
+    display: none;
+}
+
+aside .nav-links svg{
+    width: 20px;
+}
+
+aside .nav-links a {
+    font-size: 14px;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+main section {
+    max-width: 100%;
+    height: 100vh;
+    background-position: center center;
+    background-size: cover;
+}
+
+main section .wrapper {
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    opacity: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50%;
+    transition: .3s;
+}
+
+main section.reveal .wrapper {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+main section.reveal .wrapper {
+    opacity: 1;
+}
+
+main section:nth-child(1){
+    position: relative;
+}
+
+main section:nth-child(1) .call-to-action a img {
+    animation: bounce 1s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: absolute;
+    bottom: 30px;
+    left: 48%;
+}
+
+main section .desc h1{
+    color: black;
+    font-size: 38px;
+    text-align: center;
+    font-weight: 500;
+    color: #171a20;
+    letter-spacing: 2px;
+}
+
+main section:nth-child(1){
+    background-image: url('../../asset/img/Model-3.jpg');
+}
+
+main section:nth-child(2){
+    background-image: url('../../asset/img/Model-Y.jpg');
+}
+
+main section:nth-child(3){
+    background-image: url('../../asset/img/Model-S.jpg');
+}
+
+main section:nth-child(4){
+    background-image: url('../../asset/img/Model-X.jpg');
+}
+
+main section:nth-child(5){
+    background-image: url('../../asset/img/Solar-Panels.jpg');
+}
+
+main section:nth-child(6){
+    background-image: url('../../asset/img/Solar-Roof.jpg');
+}
+
+main section:nth-child(7){
+    background-image: url('../../asset/img/Accessories.jpg');
+    position: relative;
+}
+
+main section .desc p {
+    font-size: 16px;
+}
+
+main section .desc p span {
+    padding-bottom: 4px;
+    position: relative;
+    cursor: pointer;
+}
+
+main section .desc p span::after {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: var(--secondary-color);
+    height: 1px;
+}
+
+main section .desc p span:hover::after {
+    height: 2px;
+}
+
+main section .call-to-action{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 24px;
+}
+
+main section .call-to-action button{
+    cursor: pointer;
+    border: none;
+    border-radius: 100px;
+    font-weight: 600;    
+}
+
+main section .call-to-action button:nth-child(1){
+    color: #fff;
+    background-color: #171a20d2;
+    padding: 12px 74px;
+}
+
+main section .call-to-action button:nth-child(2){
+    background-color: #f4f4f4d2;
+    padding: 12px 64px;
+}
+
+main section:nth-child(5) .call-to-action button:nth-child(1){ 
+    background-color: #171a20d2;
+    backdrop-filter: blur(8px);
+    padding: 12px 84px;
+    font-size: 12px;     
+}
+
+main section:nth-child(5) .call-to-action button:nth-child(2){ 
+    background-color: #f4f4f470;
+    backdrop-filter: blur(8px);
+    color:#393c41;
+    padding: 12px 84px;
+    font-size: 12px;
+}
+       
+main section:nth-child(6) .call-to-action button:nth-child(1){ 
+    background-color: #171a20d2;
+    backdrop-filter: blur(8px);
+    padding: 12px 84px;
+}
+
+main section:nth-child(6) .call-to-action button:nth-child(2){ 
+    background-color: #f4f4f470;
+    backdrop-filter: blur(8px);
+    color:#393c41;
+    padding: 12px 84px;
+    font-size: 12px;
+} 
+
+footer{
+    position: fixed;
+    display: flex;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    flex-wrap: wrap;
+}  
+
+footer div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+footer div a{
+    color: #393c41;
+    text-decoration: none;
+    font-size:13px;
+}
+
+@keyframes bounce {
+    33% {transform: translateY(-3px);}
+    66% {transform: translateY(3px)}
+    100% {transform: translateY(3px)}
+}
+
+@media only screen and (max-width: 1200px) {
+    header nav .nav-links {
+        display: none;
+    }
+
+    header nav .menus a:nth-child(1),
+    header nav .menus a:nth-child(2){
+        display: none;
+    }
+
+    header nav .menus a:nth-child(3){
+        background-color: rgba(100, 100, 100, .1);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+}
+
+@media only screen and (max-width: 612px){
+    main section .call-to-action{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    }
+    
+    footer {
+        padding: 20px;
+    }
+
+    footer div{
+        display: flex;
+        flex-direction: column;
+    }
+}

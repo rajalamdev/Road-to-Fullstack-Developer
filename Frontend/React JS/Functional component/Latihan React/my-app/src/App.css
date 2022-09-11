@@ -1,0 +1,47 @@
+.App {
+  background-color: aliceblue;
+  max-width: 600px;
+  min-height: 100vh;
+  margin: auto;  
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, .3);
+  border-radius: 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  color: #333;
+}
+
+section {
+  padding: 20px;
+}
+
+article {
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+article h2 {
+  color: #333;
+  font-size: 18px;
+}
+
+article h2:hover {
+  color: blueviolet;
+}
+
+figure img {
+  max-width: 100%;
+}
