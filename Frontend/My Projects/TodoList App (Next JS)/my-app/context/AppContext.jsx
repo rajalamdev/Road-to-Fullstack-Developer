@@ -26,6 +26,7 @@ const AppProvider = ({ children }) => {
     const confirm = useRef(null);
     const themeBtn = useRef(null);
 
+    // storage
     
     function loadDataFromStorage(){
         let localStorageTodos = localStorage.getItem("todos");
