@@ -27,7 +27,6 @@ const AppProvider = ({ children }) => {
     const themeBtn = useRef(null);
 
     // storage
-    
     function loadDataFromStorage(){
         let localStorageTodos = localStorage.getItem("todos");
         let localStorageTheme = localStorage.getItem("theme");
