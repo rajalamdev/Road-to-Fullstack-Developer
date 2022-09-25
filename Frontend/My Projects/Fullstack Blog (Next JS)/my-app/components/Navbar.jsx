@@ -30,9 +30,9 @@ export default function Navbar() {
         </Link>
         <ul className={`md:w-7/12 transition duration-300 md:translate-x-0 ${offCanvas ? 'translate-x-0' : '-translate-x-full'} flex gap-12 md:flex md:static fixed left-0 right-0 bottom-0 top-0 z-50 md:bg-transparent bg-slate-700 justify-center md:justify-start md:flex-row flex-col items-center md:text-base text-xl`}>
             <div className="cursor-pointer md:hidden fixed right-10 top-8 text-2xl" onClick={() => setOffCanvas(!offCanvas)}>&#10005;</div>
-            <li><Link href="/"><a>UI Design</a></Link></li>
-            <li><Link href="/"><a>Front-end</a></Link></li>
-            <li><Link href="/"><a>Back-end</a></Link></li>
+            <li><Link href="/posts"><a>UI Design</a></Link></li>
+            <li><Link href="/posts"><a>Front-end</a></Link></li>
+            <li><Link href="/posts"><a>Back-end</a></Link></li>
             <li>
                 <a className="relative" onClick={() => setDropdown(!dropDown)}>
                     <span className="cursor-pointer flex items-center gap-1">
