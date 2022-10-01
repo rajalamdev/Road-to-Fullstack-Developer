@@ -1,17 +1,13 @@
 inputUser = int(input("Masukkan jumlah bilangan: "))
 
 def fibonacci(n):
-    listFibonacci = []
-    n1 = 0
-    n2 = 1
+    listFibonacci = [0, 1]
 
-    for i in range(n):
-        listFibonacci.append(n1)
-        bilanganTerakhir = n1 + n2
-        n1 = n2
-        n2 = bilanganTerakhir
+    for i in range(2, n):
+        sumIndex = listFibonacci[i - 2] + listFibonacci[i - 1]
+        listFibonacci.append(sumIndex)
 
     print("List Fibonacci:", listFibonacci)
-    print("Sum Fibonacci:", sum(listFibonacci))
+    print("Total sum", sum(listFibonacci))
     
 fibonacci(inputUser)
