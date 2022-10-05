@@ -1,4 +1,5 @@
-pascal = 1
+inputUser = int(input("Masukan jumlah bilangan: "))
+one = 1
 
 def pascalGenerator(n):
     for i in range(1, n + 1):
@@ -6,10 +7,10 @@ def pascalGenerator(n):
             print(" ",end="")
         for j in range(0, i):
             if j == 0 or i == 0:
-                pascal = 1
+                one = 1
             else:
-                pascal = pascal * (i - j) // j
-            print(pascal, end = " ")
+                one = one * (i - j) // j
+            print(one, end = " ")
         print()
 
-pascalGenerator(5)
+pascalGenerator(inputUser)

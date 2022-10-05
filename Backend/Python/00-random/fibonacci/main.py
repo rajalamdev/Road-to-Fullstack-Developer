@@ -1,11 +1,15 @@
 inputUser = int(input("Masukkan jumlah bilangan: "))
 
 def fibonacci(n):
-    listFibonacci = [0, 1]
+    listFibonacci = []
 
-    for i in range(2, n):
-        sumIndex = listFibonacci[i - 2] + listFibonacci[i - 1]
-        listFibonacci.append(sumIndex)
+    for i in range(0, n): 
+        if (len(listFibonacci) == 0):
+            listFibonacci.append(0)
+        elif (len(listFibonacci) == 1):
+            listFibonacci.append(1)
+        else:
+            listFibonacci.append(listFibonacci[i - 2] + listFibonacci[i - 1])
 
     print("List Fibonacci:", listFibonacci)
     print("Total sum", sum(listFibonacci))

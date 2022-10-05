@@ -2,21 +2,14 @@ inputUser = int(input("Masukan angka: "))
 
 def isPrima(n):
     prima = 0
-    primaNumber = []
-    message = """{n} merupakan bilangan PRIMA
-        \nberikut list bilangan prima kurang dari {n}:""".format(n = n)
 
     for i in range(1, n + 1):
         if(n % i == 0):
             prima += 1
-            primaNumber.append(i)
     
-    if(prima == 2):
-        print(message)
-        print(primaNumber)
+    if prima == 2:
+        print("""{n} MERUPAKAN bilangan PRIMA""".format(n = n))
     else:
-        print(message)
-        primaNumber.pop() 
-        print(primaNumber)
+        print("""{n} BUKAN bilangan PRIMA""".format(n = n))
 
 isPrima(inputUser)
