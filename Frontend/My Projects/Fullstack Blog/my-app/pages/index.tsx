@@ -4,7 +4,21 @@ import FeaturedPost from '../components/FeaturedPost'
 import Layout from '../components/Layout'
 import Posts from '../components/Posts'
 
-const Home: NextPage = () => {
+export async function getStaticProps(){
+  const reqFeatured = await fetch(process.env.apiUrl + "/api/posts?populate=*&filters[featuredPost][$eq]=true");
+  const resFeatured = await reqFeatured.json();
+
+  return {
+    props: {
+      featured: resFeatured.data
+    }
+  }
+}
+
+const Home: NextPage = (props) => {
+  console.log(props);
+  
+
   return (
     <div>
       <Head>
