@@ -1,5 +1,4 @@
 import Image from "next/image"
-import { formatDate } from "../utility/formatDate"
 
 export default function InfoPosts(props) {
 
@@ -8,7 +7,7 @@ export default function InfoPosts(props) {
         <div className="flex gap-4 text-white/50 text-sm my-4">
           <div>{props.category}</div>
           <div>&#9679;</div>
-          <div>{formatDate(props.publishedAt)}</div>
+          <div>{props.date}</div>
         </div>
         <h1 className="text-2xl mb-4">{props.title}</h1>
         <p className="text-white/50 mb-4">{props.headline}</p>

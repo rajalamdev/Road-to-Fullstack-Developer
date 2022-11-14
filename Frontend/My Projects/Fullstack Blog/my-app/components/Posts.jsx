@@ -10,11 +10,10 @@ export default function Posts({postsApi}) {
 
   return (
     <article className="flex flex-wrap -ml-3 pt-16">
-
         {posts.map(post => {
             return (
                 <div className="md:w-4/12 w-full px-3 mb-16" key={post.id}>
-                    <CardPosts postApi = {post} />
+                    <CardPosts {...post.attributes} />
                 </div>
             )
         })}        

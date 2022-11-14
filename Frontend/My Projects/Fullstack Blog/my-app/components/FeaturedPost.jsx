@@ -3,6 +3,7 @@ import InfoPosts from "./InfoPosts";
 import {formatDate} from "../utility/formatDate"
 
 export default function FeaturedPost(props) {
+
   return (
     <article className="flex flex-wrap">
       <div className="w-full md:w-8/12 md:pr-6">
@@ -23,7 +24,7 @@ export default function FeaturedPost(props) {
           category={props.category}
           date={formatDate(props.publishedAt)}
           title={props.title}
-          desc={props.headline}
+          headline={props.headline}
           authorAvatar={process.env.apiUrl + props.authorAvatar.data[0].attributes.url}
           authorName={props.authorName}  
           authorJob={props.authorJob}
