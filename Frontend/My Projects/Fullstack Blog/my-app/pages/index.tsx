@@ -8,16 +8,28 @@ export async function getStaticProps(){
   const reqFeatured = await fetch(process.env.apiUrl + "/api/posts?populate=*&filters[featuredPost][$eq]=true");
   const resFeatured = await reqFeatured.json();
 
+  const reqPosts = await fetch(process.env.apiUrl + "/api/posts?populate=*&filters[featuredPost][$eq]=false");
+  const resPosts = await reqPosts.json();
+
   return {
     props: {
-      featured: resFeatured.data
+      featured: resFeatured.data,
+      posts: resPosts.data,
     }
   }
 }
 
-const Home: NextPage = (props) => {
-  console.log(props);
-  
+interface Props{
+  featured: {},
+  posts: {}
+}
+
+const Home: NextPage<Props> = ({featured, posts}) => {
+  // const key:string = "0"
+  // const featuredPostApi = featured[key as keyof typeof featured].attributes;
+
+  const featuredPostApi = featured[0].attributes;
+  const postsApi = posts
 
   return (
     <div>
@@ -30,8 +42,8 @@ const Home: NextPage = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <FeaturedPost />
-        <Posts />
+        <FeaturedPost {...featuredPostApi} />
+        <Posts postsApi = {postsApi} />
       </Layout>
     </div>
   )

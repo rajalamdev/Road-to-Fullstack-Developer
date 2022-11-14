@@ -1,25 +1,14 @@
 import Image from "next/image";
 import InfoPosts from "./InfoPosts";
+import {formatDate} from "../utility/formatDate"
 
-export default function FeaturedPost() {
-  const featuredPost = {
-    thumbnail: "/thumbnail-1.png",
-    category: "UI DESIGN",
-    date: "JULY 2 2022",
-    title:
-      "Understanding color theory: the color wheel and finding complementary colors",
-    desc: "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit laborum.",
-    authorAvatar: "/author-1.png",
-    authorName: "Leslie Alexander",
-    authorJob: "UI DESIGNER",
-  };
-
+export default function FeaturedPost(props) {
   return (
     <article className="flex flex-wrap">
       <div className="w-full md:w-8/12 md:pr-6">
         <div className="relative">
           <Image
-            src={featuredPost.thumbnail}
+            src={process.env.apiUrl + props.thumbnail.data.attributes.url}
             width={3}
             height={2}
             layout="responsive"
@@ -31,13 +20,13 @@ export default function FeaturedPost() {
       </div>
       <div className="w-full md:w-4/12">
         <InfoPosts 
-          category={featuredPost.category}
-          date={featuredPost.date}
-          title={featuredPost.title}
-          desc={featuredPost.title}
-          authorAvatar={featuredPost.authorAvatar}
-          authorName={featuredPost.authorName}  
-          authorJob={featuredPost.authorJob}
+          category={props.category}
+          date={formatDate(props.publishedAt)}
+          title={props.title}
+          desc={props.headline}
+          authorAvatar={process.env.apiUrl + props.authorAvatar.data[0].attributes.url}
+          authorName={props.authorName}  
+          authorJob={props.authorJob}
         />
       </div>
     </article>
