@@ -100,7 +100,9 @@ while len(possibleNumber):
     displayTicTacToe(board)
 
     print("Free Number: ", possibleNumber)
+    win = winner()
+    if win == True:
+        break
 
-win = winner()
 if win != True:
     print("DRAW")
