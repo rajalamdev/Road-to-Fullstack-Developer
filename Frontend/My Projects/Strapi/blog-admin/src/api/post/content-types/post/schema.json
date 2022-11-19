@@ -54,6 +54,10 @@
     },
     "featuredPost": {
       "type": "boolean"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     }
   }
 }

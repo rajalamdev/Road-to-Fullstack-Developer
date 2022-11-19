@@ -28,6 +28,7 @@ export default function FeaturedPost(props) {
           authorAvatar={process.env.apiUrl + props.authorAvatar.data[0].attributes.url}
           authorName={props.authorName}  
           authorJob={props.authorJob}
+          slug = {props.slug}
         />
       </div>
     </article>

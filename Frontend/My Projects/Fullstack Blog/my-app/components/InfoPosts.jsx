@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 export default function InfoPosts(props) {
 
@@ -9,7 +10,9 @@ export default function InfoPosts(props) {
           <div>&#9679;</div>
           <div>{props.date}</div>
         </div>
-        <h1 className="text-2xl mb-4">{props.title}</h1>
+        <Link href={props.slug ? props.slug : "#"}>
+          <h1 className="text-2xl mb-4 cursor-pointer">{props.title}</h1>
+        </Link>
         <p className="text-white/50 mb-4">{props.headline}</p>
         <div className="flex gap-4 items-center text-sm">
           <Image src={props.authorAvatar} width={50} height={50} alt="avatar"/>

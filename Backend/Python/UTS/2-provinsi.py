@@ -108,108 +108,109 @@ LuasProv = {"Nanggore Aceh Darussalam" : 57.96,
 "Papua Barat" : 102.96,
 "Papua" : 319.036}
 
+
 # 1
-def nomor1():
-    print("No. 1")
+# def nomor1():
+#     print("No. 1")
                         
-    provinsiList = []
-    for prov in Provinsi:
-        if "Sumatera" in prov or "Jawa" in prov or "Sulawesi" in prov or "Kalimantan" in prov or "Papua" in prov:
-            provinsiList.append(prov)
+#     provinsiList = []
+#     for prov in Provinsi:
+#         if "Sumatera" in prov or "Jawa" in prov or "Sulawesi" in prov or "Kalimantan" in prov or "Papua" in prov:
+#             provinsiList.append(prov)
 
-    for provShort in provinsiList:
-        split = provShort.split(" ")
-        provinsi = split[0]
-        wilayah = split[1]
+#     for provShort in provinsiList:
+#         split = provShort.split(" ")
+#         provinsi = split[0]
+#         wilayah = split[1]
 
-        if provinsi == "Sumatera" and (wilayah == "Utara" or wilayah == "Selatan" or wilayah == "Barat"):
-            provinsi = provinsi[:3]
-            if wilayah == "Utara":
-                wilayah = wilayah[:2]
-            else:
-                wilayah = wilayah[:3]
-            print(provinsi, wilayah, sep="")
-        elif provinsi == "Kalimantan" and (wilayah == "Barat" or wilayah == "Timur" or wilayah == "Selatan" or wilayah == "Tengah" or wilayah == "Utara"):
-            provinsi = provinsi[:3]
-            if wilayah == "Utara":
-                wilayah = wilayah[:2]
-            elif wilayah == "Tengah":
-                wilayah = wilayah[:4]
-            else:
-                wilayah = wilayah[:3]
-            print(provinsi, wilayah, sep="")
-        elif provinsi == "Jawa" and (wilayah == "Barat" or wilayah == "Tengah" or wilayah == "Timur"):
-            provinsi = provinsi[:2]
-            if wilayah == "Tengah":
-                wilayah = wilayah[:4]
-            else: 
-                wilayah = wilayah[:3]
-            print(provinsi, wilayah, sep="")
-        elif provinsi == "Sulawesi" and (wilayah == "Barat" or wilayah == "Tengah" or wilayah == "Utara" or wilayah == "Tenggara" or wilayah == "Selatan"):
-            provinsi = provinsi[:3]
-            if wilayah == "Tengah":
-                wilayah = wilayah[:4]
-            elif wilayah == "Tenggara":
-                wilayah = wilayah[:]
-            elif wilayah == "Utara":
-                wilayah = wilayah[:2]
-            else:
-                wilayah = wilayah[:3]
-            print(provinsi, wilayah, sep="")
-        elif provinsi == "Papua" and wilayah == "Barat":
-            print(provinsi, wilayah)
+#         if provinsi == "Sumatera" and (wilayah == "Utara" or wilayah == "Selatan" or wilayah == "Barat"):
+#             provinsi = provinsi[:3]
+#             if wilayah == "Utara":
+#                 wilayah = wilayah[:2]
+#             else:
+#                 wilayah = wilayah[:3]
+#             print(provinsi, wilayah, sep="")
+#         elif provinsi == "Kalimantan" and (wilayah == "Barat" or wilayah == "Timur" or wilayah == "Selatan" or wilayah == "Tengah" or wilayah == "Utara"):
+#             provinsi = provinsi[:3]
+#             if wilayah == "Utara":
+#                 wilayah = wilayah[:2]
+#             elif wilayah == "Tengah":
+#                 wilayah = wilayah[:4]
+#             else:
+#                 wilayah = wilayah[:3]
+#             print(provinsi, wilayah, sep="")
+#         elif provinsi == "Jawa" and (wilayah == "Barat" or wilayah == "Tengah" or wilayah == "Timur"):
+#             provinsi = provinsi[:2]
+#             if wilayah == "Tengah":
+#                 wilayah = wilayah[:4]
+#             else: 
+#                 wilayah = wilayah[:3]
+#             print(provinsi, wilayah, sep="")
+#         elif provinsi == "Sulawesi" and (wilayah == "Barat" or wilayah == "Tengah" or wilayah == "Utara" or wilayah == "Tenggara" or wilayah == "Selatan"):
+#             provinsi = provinsi[:3]
+#             if wilayah == "Tengah":
+#                 wilayah = wilayah[:4]
+#             elif wilayah == "Tenggara":
+#                 wilayah = wilayah[:]
+#             elif wilayah == "Utara":
+#                 wilayah = wilayah[:2]
+#             else:
+#                 wilayah = wilayah[:3]
+#             print(provinsi, wilayah, sep="")
+#         elif provinsi == "Papua" and wilayah == "Barat":
+#             print(provinsi, wilayah)
 
-        if provinsi == "Papua":
-            return print(provinsi, "\n")
-nomor1()
+#         if provinsi == "Papua":
+#             return print(provinsi, "\n")
+# nomor1()
 
-# 2 
-def nomor2():
-    print("No. 2")
-    inputUser = input("Masukkan Nama Provinsi: ")
-    for provinsi, ibuKota in IbuKotaProv.items():
-        if inputUser.title() == provinsi:
-            print("Ibukota dari Provinsi {} adalah: {}".format(provinsi, ibuKota))
-    print()
-nomor2()
+# # 2 
+# def nomor2():
+#     print("No. 2")
+#     inputUser = input("Masukkan Nama Provinsi: ")
+#     for provinsi, ibuKota in IbuKotaProv.items():
+#         if inputUser.title() == provinsi:
+#             print("Ibukota dari Provinsi {} adalah: {}".format(provinsi, ibuKota))
+#     print()
+# nomor2()
 
-# 3
-def nomor3():
-    print("No. 3")
-    inputUser = input("Masukkan Nama Ibukota: ")
-    for provinsi, ibuKota in IbuKotaProv.items():
-        if inputUser.title() == ibuKota:
-            print("Provinsi dari Ibukota {} adalah: {}".format(ibuKota, provinsi))
-    print()
-nomor3()
+# # 3
+# def nomor3():
+#     print("No. 3")
+#     inputUser = input("Masukkan Nama Ibukota: ")
+#     for provinsi, ibuKota in IbuKotaProv.items():
+#         if inputUser.title() == ibuKota:
+#             print("Provinsi dari Ibukota {} adalah: {}".format(ibuKota, provinsi))
+#     print()
+# nomor3()
 
-# 4
-def nomor4():
-    print("No. 4")
-    ibuKotaListSorted = []
-    for provinsi, ibuKota in IbuKotaProv.items():
-        ibuKotaListSorted.append(ibuKota)
+# # 4
+# def nomor4():
+#     print("No. 4")
+#     ibuKotaListSorted = []
+#     for provinsi, ibuKota in IbuKotaProv.items():
+#         ibuKotaListSorted.append(ibuKota)
 
-    ibuKotaListSorted.sort(key=len)
-    print(ibuKotaListSorted)
-    print("Nama Ibukota Terpanjang: {}".format(ibuKotaListSorted[len(ibuKotaListSorted) - 1]))
-    print("Nama Ibukota Terpendek: {}".format(ibuKotaListSorted[0]))
+#     ibuKotaListSorted.sort(key=len, reverse=True)
+#     print(ibuKotaListSorted)
+#     print("Nama Ibukota Terpanjang: {}".format(ibuKotaListSorted[len(ibuKotaListSorted) - 1]))
+#     print("Nama Ibukota Terpendek: {}".format(ibuKotaListSorted[0]))
 
-    print()
-nomor4()
+#     print()
+# nomor4()
 
-# # 5
-print("No. 5")
-def nomor5():
-    copyLuasProv = LuasProv.copy()
-    sorted_values = sorted(copyLuasProv.values())
-    sorted_LuasProv = {}
+# # # 5
+# print("No. 5")
+# def nomor5():
+#     copyLuasProv = LuasProv.copy()
+#     sorted_values = sorted(copyLuasProv.values())
+#     sorted_LuasProv = {}
 
-    for value in sorted_values:
-        for key in copyLuasProv:
-            if copyLuasProv[key] == value:
-                sorted_LuasProv[key] = copyLuasProv[key]
+#     for value in sorted_values:
+#         for key in copyLuasProv:
+#             if copyLuasProv[key] == value:
+#                 sorted_LuasProv[key] = copyLuasProv[key]
 
-    for key, value in sorted_LuasProv.items():
-        print("{}: {}".format(key, value))
-nomor5()
+#     for key, value in sorted_LuasProv.items():
+#         print("{}: {}".format(key, value))
+# nomor5()
