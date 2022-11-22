@@ -2,16 +2,13 @@ import InfoPosts from "../components/InfoPosts";
 import Layout from "../components/Layout";
 import Image from "next/image";
 import { formatDate } from "../utility/formatDate"
+import ReactMarkdown from "react-markdown"
 
 export async function getServerSideProps({params: {slug}}){
   const reqInfoPost = await fetch(process.env.apiUrl + `/api/posts?populate=*&filters[slug][$eq]=${slug}`)
   const resInfoPost = await reqInfoPost.json()
 
-  if (resInfoPost.data.length == 0){
-    return {
-      notFound: true
-    }
-  }
+  if (resInfoPost.data.length == 0) return {notFound: true}
 
   return {
     props: {
@@ -21,12 +18,9 @@ export async function getServerSideProps({params: {slug}}){
 }
 
 export default function detail({detailPost}) {
-  // const res = resInfoPost.filter(res => res.attributes.slug == params.slug ? res.attributes.slug : false )
-  // const detailPost = res[0].attributes
-
   return (
     <Layout>
-      <div className="text-center flex flex-col items-center w-[525px] mx-auto">
+      <div className="text-center flex flex-col items-center max-w-[525px] mx-auto">
         <InfoPosts
           category={detailPost.category}
           date={formatDate(detailPost.publishedAt)}
@@ -52,9 +46,9 @@ export default function detail({detailPost}) {
           you're. Dry, gathering beginning given made them evening.
         </h3>
         <div className="space-y-10 text-white/50">
-            <p>
-            {detailPost.content}
-            </p>
+            <ReactMarkdown className="prose max-w-none prose-p:text-white/50 prose-li:text-white/50 prose-ol:text-white/50">
+                {detailPost.content}
+            </ReactMarkdown>
         </div>
       </div>
     </Layout>
