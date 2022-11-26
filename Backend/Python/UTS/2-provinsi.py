@@ -109,10 +109,10 @@ LuasProv = {"Nanggore Aceh Darussalam" : 57.96,
 "Papua" : 319.036}
 
 
-# 1
+# # 1
 # def nomor1():
 #     print("No. 1")
-                        
+                         
 #     provinsiList = []
 #     for prov in Provinsi:
 #         if "Sumatera" in prov or "Jawa" in prov or "Sulawesi" in prov or "Kalimantan" in prov or "Papua" in prov:
@@ -122,7 +122,7 @@ LuasProv = {"Nanggore Aceh Darussalam" : 57.96,
 #         split = provShort.split(" ")
 #         provinsi = split[0]
 #         wilayah = split[1]
-
+ 
 #         if provinsi == "Sumatera" and (wilayah == "Utara" or wilayah == "Selatan" or wilayah == "Barat"):
 #             provinsi = provinsi[:3]
 #             if wilayah == "Utara":
@@ -159,20 +159,20 @@ LuasProv = {"Nanggore Aceh Darussalam" : 57.96,
 #             print(provinsi, wilayah, sep="")
 #         elif provinsi == "Papua" and wilayah == "Barat":
 #             print(provinsi, wilayah)
-
+ 
 #         if provinsi == "Papua":
 #             return print(provinsi, "\n")
 # nomor1()
-
-# # 2 
-# def nomor2():
-#     print("No. 2")
-#     inputUser = input("Masukkan Nama Provinsi: ")
-#     for provinsi, ibuKota in IbuKotaProv.items():
-#         if inputUser.title() == provinsi:
-#             print("Ibukota dari Provinsi {} adalah: {}".format(provinsi, ibuKota))
-#     print()
-# nomor2()
+# 
+# 2 
+def nomor2():
+    print("No. 2")
+    inputUser = input("Masukkan Nama Provinsi: ")
+    for provinsi, ibuKota in IbuKotaProv.items():
+        if inputUser.title() == provinsi:
+            print("Ibukota dari Provinsi {} adalah: {}".format(provinsi, ibuKota))
+    print()
+nomor2()
 
 # # 3
 # def nomor3():

@@ -1,9 +1,3 @@
-# NAMA: Raj Alam
-# Prodi: Teknik Informatika
-# NIM: 1152200003
-
-import random
-
 board = [
          ["1", "2", "3"],
          ["4", "5", "6"],
