@@ -18,9 +18,6 @@
     "headline": {
       "type": "string"
     },
-    "category": {
-      "type": "string"
-    },
     "thumbnail": {
       "type": "media",
       "multiple": false,
@@ -58,6 +55,11 @@
     "slug": {
       "type": "uid",
       "targetField": "title"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
     }
   }
 }
