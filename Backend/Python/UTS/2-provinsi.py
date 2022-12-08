@@ -199,18 +199,18 @@ nomor2()
 #     print()
 # nomor4()
 
-# # # 5
-# print("No. 5")
-# def nomor5():
-#     copyLuasProv = LuasProv.copy()
-#     sorted_values = sorted(copyLuasProv.values())
-#     sorted_LuasProv = {}
+# # 5
+print("No. 5")
+def nomor5():
+    copyLuasProv = LuasProv.copy()
+    sorted_values = sorted(copyLuasProv.values())
+    sorted_LuasProv = {}
 
-#     for value in sorted_values:
-#         for key in copyLuasProv:
-#             if copyLuasProv[key] == value:
-#                 sorted_LuasProv[key] = copyLuasProv[key]
+    for value in sorted_values:
+        for key in copyLuasProv:
+            if copyLuasProv[key] == value:
+                sorted_LuasProv[key] = copyLuasProv[key]
 
-#     for key, value in sorted_LuasProv.items():
-#         print("{}: {}".format(key, value))
-# nomor5()
+    for key, value in sorted_LuasProv.items():
+        print("{}: {}".format(key, value))
+nomor5()
