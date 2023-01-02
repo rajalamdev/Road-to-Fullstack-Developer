@@ -96,7 +96,7 @@ def atm():
     data = {
         "user1": {
             "saldo": 100000,
-            "pin": 12345
+            "pin": 1234
         },
         "user2": {
             "saldo": 250000,

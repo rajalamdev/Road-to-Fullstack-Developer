@@ -225,7 +225,6 @@ const AppProvider = ({ children }) => {
         localStorage.setItem("theme", target.color);
         setStorageTheme(target.color)
     }
-
     const contextValue = {
         todos,
         saveTodos,

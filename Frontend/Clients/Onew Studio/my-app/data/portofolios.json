@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "title": "Suri Mulya aku adik yang baik",
+        "thumbnail": "/suri-mulya-aku-adik-yang-baik.png",
+        "category": ["Premiere", "Adobe"],
+        "slug": "suri-mulya-aku-adik-yang-baik"
+    },
+    {
+        "id": 2,
+        "title": "Final Render Preview",
+        "thumbnail": "/final-render-preview.png",
+        "category": ["Premiere", "Adobe", "XD"],
+        "slug": "final-render-preview"
+    },
+    {
+        "id": 3,
+        "title": "The Hope",
+        "thumbnail": "/the-hope.png",
+        "category": ["Lorem Ipsum"],
+        "slug": "the-hope"
+    },
+    {
+        "id": 4,
+        "title": "Motion Graphic",
+        "thumbnail": "/mograph.png",
+        "category": ["XD", "Blender"],
+        "slug": "motion-graphic-1"
+    },
+    {
+        "id": 5,
+        "title": "Motion Graphic",
+        "thumbnail": "/motion-graphic.png",
+        "category": ["XD"],
+        "slug": "motion-graphic-2"
+    },
+    {
+        "id": 6,
+        "title": "Motion Graphic",
+        "thumbnail": "/profile-mograph.png",
+        "category": ["Premiere"],
+        "slug": "motion-graphic-3"
+    },
+    {
+        "id": 7,
+        "title": "Pose to Pose",
+        "thumbnail": "/pose.png",
+        "category": ["Premiere"],
+        "slug": "pose-to-pose"
+    }
+]

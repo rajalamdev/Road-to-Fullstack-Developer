@@ -18,6 +18,8 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -33,17 +35,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-# color
-  --bg-primary: rgb(26, 29, 38) / #090E16;
-  --navbar-primary: #0f172a;
-  --header-primary: #00ADB5;
-  --header-secondary: #eee;
-  --text-primary: #8d9bb1;
-
-# install all the package 
-yarn add nodemailer
-yarn add @fortawesome/react-fontawesome@latest
-yarn add @fortawesome/fontawesome-svg-core
-yarn add @fortawesome/free-solid-svg-icons
-yarn add @fortawesome/free-regular-svg-icons
-yarn add @fortawesome/free-brands-svg-icons
+# Install All Package
+yarn add knex mysql jsonwebtoken bcryptjs js-cookie next-cookies dotenv
