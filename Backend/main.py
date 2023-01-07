@@ -181,7 +181,7 @@ def createDataMhs():
         break
 
     while True:
-        selectKelas = input("Pilih Kelas (Reguler / Pararel): ").title()
+        selectKelas = input("Pilih Kelas (Reguler / Paralel): ").title()
         if selectKelas not in prodiList:
             print("\n>>> Kelas tersebut tidak ada dalam daftar!\n")
             continue
