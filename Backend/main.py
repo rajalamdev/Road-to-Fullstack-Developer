@@ -1,9 +1,4 @@
-
-username = "Admin";
-password = "Admin";
-
-inputUsername = input("Username: ")
-inputPassword = input("Password: ")
+import datetime
 
 dataMhs = {
     "1152200003": {
@@ -54,7 +49,7 @@ prodiList = {
     }
 }
 
-matkulList = {
+matkulPick = {
     "Informatika": {
         "1": {
             "matkul": "Kalkulus",
@@ -69,12 +64,24 @@ matkulList = {
             "sks": 3
         },
         "4": {
-            "matkul": "Agama Islam",
+            "matkul": "Agama",
             "sks": 2
         },
         "5": {
             "matkul": "Pemrograman Berorientasi Objek",
-            "sks": 5
+            "sks": 4
+        },
+        "6": {
+            "matkul": "Machine Learning",
+            "sks": 4
+        },
+        "7": {
+            "matkul": "English",
+            "sks": 3
+        },
+        "8": {
+            "matkul": "Data Mining",
+            "sks": 4
         }
     },
     "Elektro": {
@@ -91,9 +98,17 @@ matkulList = {
             "sks": 3
         },
         "4": {
-            "matkul": "Agama Islam",
+            "matkul": "Agama",
             "sks": 2
         },
+        "5": {
+            "matkul": "Rangkaian Listrik",
+            "sks": 4
+        },
+        "6": {
+            "matkul": "Sistem Digital",
+            "sks": 3
+        }
     },
     "Industri": {
         "1": {
@@ -101,13 +116,21 @@ matkulList = {
             "sks": 4
         },
         "2": {
-            "matkul": "Pemrograman Dasar",
-            "sks": 4 
+            "matkul": "Otomasi",
+            "sks": 3 
         },
         "3": {
-            "matkul": "Agama Islam",
+            "matkul": "Agama",
             "sks": 2
         },
+        "4": {
+            "matkul": "Data Science",
+            "sks": 3
+        },
+        "5": {
+            "matkul": "English",
+            "sks": 4
+        }
     },
     "Mesin": {
         "1": {
@@ -115,10 +138,29 @@ matkulList = {
             "sks": 4
         },
         "2": {
-            "matkul": "Agama Islam",
+            "matkul": "Agama",
             "sks": 2
         },
+        "3": {
+            "matkul": "Kinematika",
+            "sks": 3
+        }, 
+        "4": {
+            "matkul": "Fisika",
+            "sks": 3
+        }, 
+        "5": {
+            "matkul": "Kimia",
+            "sks": 2
+        }
     }
+}
+
+matkulList = {
+    "Informatika": ["Kalkulus", "Pemrograman Dasar", "Statistika", "Pemrograman Berorientasi Objek", "Agama", "Machine Learning", "English", "Data Mining"],
+    "Elektro": ["Kalkulus", "Pemrograman Dasar", "Statistika", "Agama", "Rangkaian Listrik", "Sistem Digital"],
+    "Industri": ["Kalkulus", "Pemrograman Dasar", "Agama", "Data Science", "English"],
+    "Mesin": ["Kalkulus", "Agama", "Kinematika", "Fisika", "Kimia"]
 }
 
 def createDataMhs():
@@ -129,19 +171,21 @@ def createDataMhs():
     kelas = ""
     prodiRegist = ""
 
+    getCurrentYear = str(datetime.date.today().year)[2:]
+
     while True:
-        nama = input("Nama: ")
+        nama = input("Nama: ").title()
         if nama == "":
             print("\n>>> Nama tidak boleh kosong :D\n")
             continue
         break
 
     while True:
-        selectKelas = input("Pilih Kelas (Reguler / Pararel): ")
-        if selectKelas.title() not in prodiList:
+        selectKelas = input("Pilih Kelas (Reguler / Pararel): ").title()
+        if selectKelas not in prodiList:
             print("\n>>> Kelas tersebut tidak ada dalam daftar!\n")
             continue
-        kelas += selectKelas.title()
+        kelas += selectKelas
         break
 
     while True:
@@ -152,16 +196,16 @@ def createDataMhs():
                 for i in item["prodi"].keys():
                     print(i)
 
-        selectProdi = input("Pilih Program Studi: ")
+        selectProdi = input("Pilih Program Studi: ").title()
         if selectProdi.title() not in prodiList[kelas]["prodi"]:
             print("\n>>> Program studi tersebut tidak ada dalam daftar kampus kami :(")
             continue
         else:
-            prodiRegist += selectProdi.title()
+            prodiRegist += selectProdi
 
         for kelasList, item in prodiList.items():
             if kelas == kelasList:
-                nrp += "".join(f"{item['prodi'][prodiRegist.title()]['noProdi']}{item['noKelas']}{item['prodi'][prodiRegist.title()]['id']}")
+                nrp += "".join(f"{item['prodi'][prodiRegist]['noProdi']}{getCurrentYear}{item['noKelas']}{item['prodi'][prodiRegist]['id']}")
         break
 
     dataMhs[nrp] = {
@@ -177,18 +221,21 @@ def createDataMhs():
     while matkulLoopInput:
         print()
         print("="*10, f"Daftar Matkul Prodi {prodiRegist}", "="*10)
-        for id, item in matkulList.items():
+        for id, item in matkulPick.items():
             if id == prodiRegist:
                 for key, value in item.items():
+                    if value["matkul"] in dataMhs[nrp]["matkul"]:
+                       print(key, ":",value["matkul"], "(terdaftar!)")
+                       continue
                     print(key, ":",value["matkul"], f"({value['sks']}sks)")
 
         matkul = input("Pilih matkul: ")
 
-        if matkul not in matkulList[prodiRegist]:
+        if matkul not in matkulPick[prodiRegist]:
             print("\n>>> Matkul tersebut tidak ada di dalam daftar!")
             continue
 
-        for id, item in matkulList.items():
+        for id, item in matkulPick.items():
             if id == prodiRegist and dataMhs[nrp]["nama"] == nama:
                 for key, value in item.items():
                     if matkul == key:
@@ -197,7 +244,7 @@ def createDataMhs():
                         else:
                             dataMhs[nrp]["matkul"].update({value["matkul"]: ""})
                             dataMhs[nrp]["sks"] += value["sks"]
-                            print(f"\n>>> Mata Kuliah {matkulList[prodiRegist][matkul]['matkul']} Berhasil ditambahkan\n")
+                            print(f"\n>>> Mata Kuliah {matkulPick[prodiRegist][matkul]['matkul']} Berhasil ditambahkan\n")
 
         while True:
             tambahMatkul = input("Ingin tambah matkul lagi? (Y/N): ")
@@ -213,14 +260,16 @@ def createDataMhs():
                 continue
     
 def showDataMhs(excepts=""):
-    print(" "*25,"DAFTAR MAHASISWA"," "*25)
-    print("="*50)
+    print()
+    print(" "*33,"DAFTAR MAHASISWA"," "*33)
+    print("="*80)
     for id, data in dataMhs.items():
         for key in data:
             if key == excepts:
                 continue
             print(key, ": ", data[key])
-        print("="*50)
+        print("="*80)
+    print()
 
 def renameDataMhs():
     while True:
@@ -232,42 +281,65 @@ def renameDataMhs():
 
             inputNrp = input("Masukkan nrp mahasiswa: ")
             if inputNrp not in dataMhs:
-               print("NRP tersebut tidak ada dalam daftar")
+               print("\n>>> NRP tersebut tidak ada dalam daftar\n")
                continue
-            else: 
-                renameNama = input("Masukkan nama mahasiswa baru: ")
-                dataMhs[inputNrp]["nama"] = renameNama
+
+            while True:
+                renameNama = input("Masukkan nama mahasiswa baru: ").title()
+                if renameNama == "":
+                    print("\n>>> Nama tidak boleh kosong!\n")
+                    continue
                 break
+
+            dataMhs[inputNrp]["nama"] = renameNama
+            print("\n>>> Berhasil Rename Mahasiswa!\n")
+            break
         elif select == "2":
             showDataMhs()
 
             inputNrp = input("Masukkan nrp mahasiswa: ")
             if inputNrp not in dataMhs:
-               print("NRP tersebut tidak ada dalam daftar")
+               print("\n>>> NRP tersebut tidak ada dalam daftar\n")
                continue
 
             while True:   
-                # for id, item in dataMhs.items():
-                #     if id == inputNrp:
-                #         print(item)
-
                 matkulLama = input("Matkul apa yang ingin di rename?: ").title()
 
                 if matkulLama not in dataMhs[inputNrp]["matkul"]:
-                    print("Matkul tersebut tidak ada dalam daftar")
+                    print("\n>>> Matkul tersebut tidak ada dalam daftar\n")
                     continue
                 else:
                     break
             
             while True:
-                renameMatkul = input("Masukkan nama matkul baru: ").title()
                 currentProdi = dataMhs[inputNrp]["prodi"]
-                for prodi, item in matkulList.items():
-                    if prodi == currentProdi:
-                        print(item)
-                
+                print()
+                print("="*10, f"Daftar Matkul Prodi {currentProdi}", "="*10)
+                for id, item in matkulPick.items():
+                    if id == currentProdi:
+                        for key, value in item.items():
+                            if value["matkul"] in dataMhs[inputNrp]["matkul"]:
+                                print(value["matkul"], "(terdaftar!)")
+                                continue
+                            print(value["matkul"])
+
+                renameMatkul = input("Masukkan nama matkul baru: ").title()
+
+                if renameMatkul in dataMhs[inputNrp]["matkul"]:
+                    print("\n>>> Nama matkul tidak boleh sama dengan matkul lama / tidak duplikat dengan matkul lain!\n")
+                    continue
+
+                if renameMatkul not in matkulList[currentProdi]:
+                    print("\n>>> Anda hanya boleh rename matkul sesuai daftar matkul!\n")
+                    continue
+
+                dataMhs[inputNrp]["matkul"][renameMatkul] = dataMhs[inputNrp]["matkul"].pop(matkulLama)
+                break
+            
+            print("\n>>> Berhasil Rename Matkul!\n")
+            break       
         else:
-            print("Input Salah!")
+            print("\n>>> Input Salah!\n")
             
 def deleteDataMhs():
     while True:
@@ -280,51 +352,100 @@ def deleteDataMhs():
 
             inputNrp = input("Masukkan nrp mahasiswa: ")
             if inputNrp not in dataMhs:
-                print("NRP tersebut tidak ada dalam daftar")
+                print("\n>>> NRP tersebut tidak ada dalam daftar\n")
                 continue
 
             del dataMhs[inputNrp]
+            print("\n>>> Berhasil Delete data Mahasiswa!\n")
             break
         elif select == "2":
             showDataMhs()
 
             inputNrp = input("Masukkan nrp mahasiswa: ")
             if inputNrp not in dataMhs:
-               print("NRP tersebut tidak ada dalam daftar")
+               print("\n>>> NRP tersebut tidak ada dalam daftar\n")
                continue
 
             while True:
-                matkulLama = input("Matkul apa yang ingin dihapus?: ")
+                matkulLama = input("Matkul apa yang ingin dihapus?: ").title()
                 if matkulLama not in dataMhs[inputNrp]["matkul"]:
-                    print("Matkul tersebut tidak ada dalam daftar")
+                    print("\n>>> Matkul tersebut tidak ada dalam daftar\n")
                     continue
                 else:
                     break
 
             del dataMhs[inputNrp]["matkul"][matkulLama]
+            print("\n>>> Berhasil Delete Matkul!\n")
             break
         else:
-            print("Input Salah!")
+            print("\n>>> Input Salah!\n")
 
-def tambahNilai():
+def tambahNilaiDanUpdateDataMhs(excepts = ""):
     while True:
         showDataMhs()
 
         inputNrp = input("Masukkan nrp mahasiswa: ")
         if inputNrp not in dataMhs:
-            print("NRP tersebut tidak ada dalam daftar")
+            print("\n>>> NRP tersebut tidak ada dalam daftar\n")
             continue
 
-        matkul = input("Masukkan matkul: ")
-        if matkul not in dataMhs[inputNrp]["matkul"]:
-            print("Matkul tersebut tidak ada dalam daftar")
-            continue
+        while True:
+            matkul = input("Masukkan matkul: ").title()
+            if matkul not in dataMhs[inputNrp]["matkul"]:
+                print("\n>>> Matkul tersebut tidak ada dalam daftar\n")
+                continue
+            break
 
-        kehadiran = int(input("Nilai Kehadiran: "))
-        praktikum = int(input("Nilai praktikum: "))
-        tugas = int(input("Nilai tugass: "))
-        uts = int(input("Nilai uts: "))
-        uas = int(input("Nilai uas: "))
+        while True:    
+            kehadiran = input(f"{excepts} Nilai Kehadiran: ")
+            if kehadiran.isdigit():
+                kehadiran = int(kehadiran)
+                if kehadiran > 100:
+                    print("\n>>> Input tidak boleh lebih dari 100!")
+                    continue
+                break
+            print("\n>>> Input hanya boleh angka dan tidak boleh kurang dari 0!\n")
+            continue
+        while True:    
+            praktikum = input(f"{excepts} Nilai praktikum: ")
+            if praktikum.isdigit():
+                praktikum = int(praktikum)
+                if praktikum > 100:
+                    print("\n>>> Input tidak boleh lebih dari 100!\n")
+                    continue
+                break
+            print("\n>>> Input hanya boleh angka dan tidak boleh kurang dari 0!\n")
+            continue
+        while True:    
+            tugas = input(f"{excepts} Nilai tugas: ")
+            if tugas.isdigit():
+                tugas = int(tugas)
+                if tugas > 100:
+                    print("\n>>> Input tidak boleh lebih dari 100!")
+                    continue
+                break
+            print("\n>>> Input hanya boleh angka dan tidak boleh kurang dari 0!\n")
+            continue
+        while True:    
+            uts = input(f"{excepts} Nilai uts: ")
+            if uts.isdigit():
+                uts = int(uts)
+                if uts > 100:
+                    print("\n>>> Input tidak boleh lebih dari 100!")
+                    continue
+                break
+            print("\n>>> Input hanya boleh angka dan tidak boleh kurang dari 0!\n")
+            continue
+        while True:    
+            uas = input(f"{excepts} Nilai uas: ")
+            if uas.isdigit():
+                uas = int(uas)
+                if uas > 100:
+                    print("\n>>> Input tidak boleh lebih dari 100!")
+                    continue
+                break
+            print("\n>>> Input hanya boleh angka dan tidak boleh kurang dari 0!\n")
+            continue
 
         totalNilai = kehadiran*0.2 + praktikum*0.1 + tugas*0.2 + uts*0.25 + uas*0.25
         predikat = ""
@@ -341,6 +462,10 @@ def tambahNilai():
             predikat += "E"
 
         dataMhs[inputNrp]["matkul"][matkul] = "".join(f"{totalNilai}({predikat})")
+        if excepts == "":
+            print("\n>>> Nilah berhasil di tambahkan!\n")
+        else:
+            print("\n>>> Nilai berhasil di update")
         break
 
 def lihatNilaiMhs():
@@ -351,10 +476,31 @@ def lihatNilaiMhs():
             print(key, ": ", data[key])
         print("="*50)
 
-def loginAsAdmin():
+def deleteNilaiMhs():
+    while True:
+        showDataMhs()
+
+        inputNrp = input("Masukkan nrp mahasiswa: ")
+        if inputNrp not in dataMhs:
+            print("\n>>> NRP tersebut tidak ada dalam daftar\n")
+            continue
+        
+        while True:
+            matkul = input("Masukkan nilai matkul yang ingin dihapus: ").title()
+            if matkul not in dataMhs[inputNrp]["matkul"]:
+                print("\n>>> Matkul tersebut tidak ada dalam daftar\n")
+                continue
+            break
+
+        dataMhs[inputNrp]["matkul"][matkul] = ""
+        print(f"\n>>> Nilai matkul {matkul} berhasil dihapus\n")
+        break
+
+
+def menu():
     while True:
         print("="*20,"MENU","="*20)
-        print("1. Tambah data mahasiswa dan mata kuliah\n2. Lihat Data Mahasiswa dan mata kuliah\n3. Rename data mahasiswa dan mata kuliah\n4. Hapus data mahasiswa dan mata kuliah\n5. Tambah nilai pada matkul\n6. Lihat nilai mahasiswa\n7. Update nilai mahasiswa\n8. Delete nilai mahasiswa")
+        print("1. Tambah data mahasiswa dan mata kuliah\n2. Lihat Data Mahasiswa dan mata kuliah\n3. Rename data mahasiswa dan mata kuliah\n4. Hapus data mahasiswa dan mata kuliah\n5. Tambah nilai pada matkul\n6. Lihat nilai mahasiswa\n7. Update nilai mahasiswa\n8. Delete nilai mahasiswa\n9. Logout")
     
         select = input("\nMasukkan pilihan: ")
     
@@ -367,9 +513,44 @@ def loginAsAdmin():
         elif select == "4":
             deleteDataMhs()
         elif select == "5":
-            tambahNilai()
+            tambahNilaiDanUpdateDataMhs()
         elif select == "6":
             lihatNilaiMhs()
+        elif select == "7":
+            tambahNilaiDanUpdateDataMhs("update")
+        elif select == "8":
+            deleteNilaiMhs()
+        elif select == "9":
+            return print("\n>>> Logout...")
+        else:
+            print("\n>>> Harap memasukan input yang ada didaftar!")
+def login():
+    username = "Admin";
+    password = "Admin";
 
-if inputUsername == username and inputPassword == password:
-    loginAsAdmin()
+    limit = 5
+
+    while True:
+        if limit == 0:
+            return print(">>> Kesempatan sudah habis! silahkan coba lain waktu")
+
+        print("="*25, "Login", "="*25)
+        inputUsername = input("Username: ")
+        if inputUsername == "":
+            print(">>> Username tidak boleh kosong!")
+            continue
+
+        while True:
+            inputPassword = input("Password: ")
+            if inputPassword == "":
+                print("\n>>> Password tidak boleh kosong!\n")
+                continue
+            break
+    
+        if inputUsername == username and inputPassword == password:
+            print("\n>>> Login Berhasil!\n")
+            menu()
+        else:
+            limit -= 1
+            print(f"\n>>> Username / Password Salah! Sisa kesempatan {limit}\n")        
+login()
