@@ -1,15 +1,15 @@
 import datetime
 
 dataMhs = {
-    "1152200003": {
-        "nama": "alam",
-        "nrp": "1152200003",
-        "prodi": "Informatika",
-        "matkul": {
-            "Kalkulus": "80",
-            "Statistika": "85"
-        } 
-    },
+    # "1152200003": {
+    #     "nama": "raj alam",
+    #     "nrp": "1152200003",
+    #     "prodi": "Informatika",
+    #     "matkul": {
+    #         "Kalkulus": "80",
+    #         "Statistika": "85"
+    #     } 
+    # },
 }
 
 prodiList = {
@@ -214,11 +214,11 @@ def createDataMhs():
         "prodi": prodiRegist,
         "matkul": {},
         "kelas": kelas,
-        "sks": 0
+        "sks": 0,
+        "bobot": {}
     } 
 
-    matkulLoopInput = True
-    while matkulLoopInput:
+    while True:
         print()
         print("="*10, f"Daftar Matkul Prodi {prodiRegist}", "="*10)
         for id, item in matkulPick.items():
@@ -244,6 +244,7 @@ def createDataMhs():
                         else:
                             dataMhs[nrp]["matkul"].update({value["matkul"]: ""})
                             dataMhs[nrp]["sks"] += value["sks"]
+                            dataMhs[nrp]["bobot"].update({value["matkul"]: value["sks"]})
                             print(f"\n>>> Mata Kuliah {matkulPick[prodiRegist][matkul]['matkul']} Berhasil ditambahkan\n")
 
         while True:
@@ -267,13 +268,15 @@ def showDataMhs(excepts=""):
         for key in data:
             if key == excepts:
                 continue
+            if key == "bobot":
+                continue
             print(key, ": ", data[key])
         print("="*80)
     print()
 
 def renameDataMhs():
     while True:
-        print("1. Rename nama mahasiswa\n2. Rename mata kuliah")
+        print("1. Rename nama mahasiswa\n2. Rename mata kuliah\n3. Update Matkul")
 
         select = input("\nMasukkan pilihan: ")
         if select == "1":
@@ -302,6 +305,7 @@ def renameDataMhs():
                print("\n>>> NRP tersebut tidak ada dalam daftar\n")
                continue
 
+            currentProdi = dataMhs[inputNrp]["prodi"]
             while True:   
                 matkulLama = input("Matkul apa yang ingin di rename?: ").title()
 
@@ -312,7 +316,6 @@ def renameDataMhs():
                     break
             
             while True:
-                currentProdi = dataMhs[inputNrp]["prodi"]
                 print()
                 print("="*10, f"Daftar Matkul Prodi {currentProdi}", "="*10)
                 for id, item in matkulPick.items():
@@ -338,6 +341,51 @@ def renameDataMhs():
             
             print("\n>>> Berhasil Rename Matkul!\n")
             break       
+        elif select == "3":
+            showDataMhs()
+            inputNrp = input("Masukkan nrp mahasiswa: ")
+            if inputNrp not in dataMhs:
+                print("\n>>> NRP tersebut tidak ada dalam daftar\n")
+                continue
+
+            currentProdi = dataMhs[inputNrp]["prodi"]
+            while True:
+                print()
+                print("="*10, f"Daftar Matkul Prodi {currentProdi}", "="*10)
+                for id, item in matkulPick.items():
+                    if id == currentProdi:
+                        for key, value in item.items():
+                            if value["matkul"] in dataMhs[inputNrp]["matkul"]:
+                                print(key, ":",value["matkul"], "(terdaftar!)")
+                                continue
+                            print(key, ":",value["matkul"], f"({value['sks']}sks)")    
+                matkul = input("Pilih matkul: ")
+
+                if matkul not in matkulPick[currentProdi]:
+                    print("\n>>> Matkul tersebut tidak ada di dalam daftar!")
+                    continue
+
+                for id, item in matkulPick.items():
+                    if id == currentProdi:
+                        for key, value in item.items():
+                            if matkul == key:
+                                if value["matkul"] in dataMhs[inputNrp]["matkul"]:
+                                    print("\n>>> Matkul tersebut sudah ada di dalam daftar!\n")
+                                else:
+                                    dataMhs[inputNrp]["matkul"].update({value["matkul"]: ""})
+                                    dataMhs[inputNrp]["sks"] += value["sks"]
+                                    dataMhs[inputNrp]["bobot"].update({value["matkul"]: value["sks"]})
+                                    print(f"\n>>> Mata Kuliah {matkulPick[currentProdi][matkul]['matkul']} Berhasil ditambahkan\n")
+                while True:
+                    tambahMatkul = input("Ingin tambah matkul lagi? (Y/N): ")
+
+                    if tambahMatkul == "Y" or tambahMatkul == "y":
+                        break
+                    elif tambahMatkul == "N" or tambahMatkul == "n":
+                        return
+                    else:
+                        print("\n>>> Input Salah\n")
+                        continue
         else:
             print("\n>>> Input Salah!\n")
             
@@ -361,6 +409,7 @@ def deleteDataMhs():
         elif select == "2":
             showDataMhs()
 
+
             inputNrp = input("Masukkan nrp mahasiswa: ")
             if inputNrp not in dataMhs:
                print("\n>>> NRP tersebut tidak ada dalam daftar\n")
@@ -374,7 +423,10 @@ def deleteDataMhs():
                 else:
                     break
 
+            dataMhs[inputNrp]["sks"] -= dataMhs[inputNrp]["bobot"][matkulLama]
+            del dataMhs[inputNrp]["bobot"][matkulLama]
             del dataMhs[inputNrp]["matkul"][matkulLama]
+
             print("\n>>> Berhasil Delete Matkul!\n")
             break
         else:
@@ -469,9 +521,11 @@ def tambahNilaiDanUpdateDataMhs(excepts = ""):
         break
 
 def lihatNilaiMhs():
+    inputNrp = input("Masukkan nrp mahasiswa: ")
+    print("="*50)
     for id, data in dataMhs.items():
         for key in data:
-            if key == "kelas":
+            if key == "kelas" or key == "bobot" or key == "sks" or key == "kelas":
                 continue
             print(key, ": ", data[key])
         print("="*50)
