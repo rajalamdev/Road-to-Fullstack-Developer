@@ -8,7 +8,11 @@ dataMhs = {
     #     "matkul": {
     #         "Kalkulus": "80",
     #         "Statistika": "85"
-    #     } 
+    #     }, 
+    #     "bobot": {
+    #         "Kalulus": 4,
+    #         "Statistika": 3
+    #     }
     # },
 }
 
