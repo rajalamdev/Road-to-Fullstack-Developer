@@ -46,6 +46,10 @@ export default function login() {
                 maxAge: 30 * 24 * 60 * 60,
                 path: "/",
             })
+            nookies.set(null, "id", loginRes.user.id, {
+                maxAge: 30 * 24 * 60 * 60,
+                path: "/",
+            })
 
             Router.replace("/dashboard")
         }

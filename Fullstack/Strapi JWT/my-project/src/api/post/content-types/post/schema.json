@@ -15,9 +15,6 @@
     "title": {
       "type": "string"
     },
-    "content": {
-      "type": "text"
-    },
     "slug": {
       "type": "uid",
       "targetField": "title"
@@ -34,14 +31,19 @@
     "like": {
       "type": "integer"
     },
-    "liked": {
-      "type": "boolean"
-    },
     "likedBy": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "inversedBy": "likedPosts"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

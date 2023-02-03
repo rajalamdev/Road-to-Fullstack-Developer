@@ -5,7 +5,10 @@ const nextConfig = {
 
 module.exports = {
   env: {
-    PUBLIC_API_URL: 'http://localhost:1337',
+    PUBLIC_API_URL: process.env.PUBLIC_API_URL,
+  },
+  images: {
+    domains: ['localhost'],
   },
 }
 

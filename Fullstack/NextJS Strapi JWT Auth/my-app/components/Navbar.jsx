@@ -11,8 +11,8 @@ export default function Navbar() {
     }  
 
   return (
-    <div className="flex justify-center gap-8 w-full px-4 py-4">
-        <div>Raj Alam</div>
+    <div className="flex justify-center gap-8 w-full px-4 py-4 items-center fixed bg-white shadow">
+        <Link href="/dashboard">Me</Link>
         <Link href="/posts">Posts</Link>
         <Link href="/posts/create">Create Posts</Link>
         <button onClick={logoutHandler} className="px-4 py-2 bg-red-500 rounded-full">Logout</button>

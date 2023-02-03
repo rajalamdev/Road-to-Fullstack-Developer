@@ -4,7 +4,7 @@ export function authToken(ctx){
             return ctx.res.writeHead(302, {
                 location: "/dashboard"
                 
-        })}
+        }).end()}
         else{
             return resolve("Unauthorize")
         }
