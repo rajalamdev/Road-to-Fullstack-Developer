@@ -16,6 +16,7 @@ export async function getServerSideProps(ctx){
     }
 }
 
+// comment
 export default function create({token, currentUser}) {
   const [image, setImage] = useState()  
   const [title, setTitle] = useState()
