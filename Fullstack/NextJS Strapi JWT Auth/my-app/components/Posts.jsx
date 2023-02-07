@@ -77,9 +77,9 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
                         <p className="px-2 py-2 text-text-primary text-base">Post by {post.attributes.user.data ? post.attributes.user.data.attributes.username : "Admin"}</p>
                         <Image src={`${post.attributes.image.data?.attributes.url}`} width={350} height={100} /> 
                         <div className="px-2 py-2 space-y-4">
-                            <p className="text-sm">{post.attributes.title}</p>
+                            <p className="text-sm text-text-primary">{post.attributes.caption}</p>
                             <button onClick={(e) => likeDislikeHandler(e, post)} value={false} className="px-3 py-2 text-sm bg-red-500 text-white rounded-full hover:bg-red-600">Like : {post.attributes.likedBy.data.length}</button>
-                            <p className="text-xs">{new Date(post?.attributes.createdAt).toLocaleDateString("en-US", {
+                            <p className="text-xs text-text-third">{new Date(post?.attributes.createdAt).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "long",
                                 day: "numeric"

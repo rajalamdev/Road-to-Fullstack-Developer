@@ -12,12 +12,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "caption": {
       "type": "string"
     },
     "slug": {
-      "type": "uid",
-      "targetField": "title"
+      "type": "uid"
     },
     "user": {
       "type": "relation",

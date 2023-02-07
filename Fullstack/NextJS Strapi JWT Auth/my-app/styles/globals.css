@@ -10,11 +10,23 @@
         --text-secondary: #ccc;
         --text-third: #aaa;
         --border-primary: #222;
+        --border-secondary: #777
     }
 
     body {
         @apply bg-bg-primary text-text-primary
     }
+}
+
+@layer components {
+    input[type=file] {
+        @apply border-border-secondary border border-dashed w-[90%] mx-auto rounded px-4 py-3 focus:border-blue-500
+    }
+
+    input[type=file]::file-selector-button {
+        @apply bg-blue-500 border-none py-2 px-4 text-text-primary rounded
+    }
+      
 }
 
 @layer utilities {

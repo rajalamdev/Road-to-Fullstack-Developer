@@ -59,7 +59,9 @@ export default function Dashboard({me, postsApi, token, currentUser}) {
       <div>
         <div className="mb-10 pb-10 space-y-4 max-w-[350px] mx-auto border-b border-border-primary">
           <div className="flex gap-4 justify-center items-center">
-            <Image src={me?.image?.url} width={100} height={100} className="rounded-full" />
+            <div className="relative w-[100px] h-[100px]">
+              <Image src={me?.image?.url} fill className="rounded-full object-cover" />
+            </div>
             <div className="flex-col flex items-center">
               <span>{me?.posts.length}</span>
               <span>Posts</span>

@@ -16,7 +16,7 @@ export async function getServerSideProps(ctx){
 // comment
 export default function Create({token, currentUser}) {
   const [image, setImage] = useState()  
-  const [title, setTitle] = useState()
+  const [caption, setCaption] = useState()
 
 
   async function uploadImage(e){
@@ -33,7 +33,6 @@ export default function Create({token, currentUser}) {
     })
 
     const resUpload = await reqUpload.json();
-    console.log(resUpload)
 
     const reqPosts = await fetch(`${process.env.PUBLIC_API_URL}/api/posts`, {
         method: "POST",
@@ -43,8 +42,8 @@ export default function Create({token, currentUser}) {
         },
         body: JSON.stringify({
             "data": {
-                "title": title,
-                "slug": title,
+                "caption": caption,
+                "slug": caption,
                 "user": currentUser,
                 "image": resUpload[0].id
             }
@@ -57,13 +56,13 @@ export default function Create({token, currentUser}) {
   return (
     <>
         <div>
-            <h1>Create Posts</h1>
-            <form onSubmit={uploadImage}>
-                <label htmlFor="title"> Title
-                    <input type="text" name="title" onChange={(e) => setTitle(e.target.value)} />
-                </label>
-                <input type="file" onChange={(e) => setImage(e.target.files)} />
-                <button className="border-2 border-black px-2 rounded-md" type="submit">Submit</button>
+            <form onSubmit={uploadImage} className="flex flex-col gap-6 mx-auto max-w-[500px] text-sm">
+                <div className="flex justify-center">
+                    <div className="relative after:absolute after:block after:content-['Caption'] after:bg-bg-primary after:left-3 after:-top-[6px] after:px-1 after:text-blue-400"></div>
+                    <input type="text" className="w-[90%] h-8 rounded mt-1 outline-none self-center bg-bg-primary ring-1 ring-border-secondary px-4 focus:w-full transition-all duration-300 focus:ring-2 focus:ring-blue-400" name="name" onChange={(e) => setCaption(e.target.value)} />
+                </div>
+                <input type="file" onChange={(e) => setImage(e.target.files)}  />
+                <button className="bg-blue-500 w-max mx-auto px-8 py-[6px] rounded" type="submit">Submit</button>
             </form>
         </div>
     </>

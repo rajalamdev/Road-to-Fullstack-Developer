@@ -29,7 +29,8 @@ module.exports = {
         'text-secondary': 'var(--text-secondary)',
         'nav-primary': 'var(--nav-primary)',
         'border-primary': 'var(--border-primary)',
-        'text-third': 'var(--text-third)'
+        'text-third': 'var(--text-third)',
+        'border-secondary': 'var(--border-secondary)'
       },
     },
   },
