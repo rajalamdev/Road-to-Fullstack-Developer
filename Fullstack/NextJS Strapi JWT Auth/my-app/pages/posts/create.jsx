@@ -6,18 +6,15 @@ import Router from "next/router";
 export async function getServerSideProps(ctx){
     const verify = await verifyToken(ctx)
 
-    const currentUser = ctx.req.cookies.id
-
     return {
         props: {
             token: verify,
-            currentUser
         }
     }
 }
 
 // comment
-export default function create({token, currentUser}) {
+export default function Create({token, currentUser}) {
   const [image, setImage] = useState()  
   const [title, setTitle] = useState()
 
@@ -36,6 +33,7 @@ export default function create({token, currentUser}) {
     })
 
     const resUpload = await reqUpload.json();
+    console.log(resUpload)
 
     const reqPosts = await fetch(`${process.env.PUBLIC_API_URL}/api/posts`, {
         method: "POST",
@@ -53,13 +51,12 @@ export default function create({token, currentUser}) {
         })
     })
 
-    Router.push("/posts")
+    Router.push("/")
   }
 
   return (
     <>
-        <Navbar />
-        <div className="pt-24">
+        <div>
             <h1>Create Posts</h1>
             <form onSubmit={uploadImage}>
                 <label htmlFor="title"> Title

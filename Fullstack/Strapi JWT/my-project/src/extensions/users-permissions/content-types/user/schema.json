@@ -74,6 +74,45 @@
       "relation": "manyToMany",
       "target": "api::post.post",
       "mappedBy": "likedBy"
+    },
+    "name": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "username"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "followers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "following"
+    },
+    "following": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "followers"
     }
   }
 }

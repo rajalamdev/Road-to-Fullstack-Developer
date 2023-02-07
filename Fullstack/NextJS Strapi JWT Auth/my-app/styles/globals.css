@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --nav-primary: rgba(19, 17, 28, .8);
+        --bg-primary: rgb(19, 17, 28);
+        --text-primary: #eee;
+        --text-secondary: #ccc;
+        --text-third: #aaa;
+        --border-primary: #222;
+    }
+
+    body {
+        @apply bg-bg-primary text-text-primary
+    }
+}
+
+@layer utilities {
+    .sticky-nav {
+        transition-timing-function: ease;
+    }
+}

@@ -10,7 +10,7 @@ export async function getServerSideProps(ctx){
     }
 }
 
-export default function register() {
+export default function Register() {
   const [field, setField] = useState({})
   const [loading, setLoading] = useState(false) 
   const [success, setSuccess] = useState(false)

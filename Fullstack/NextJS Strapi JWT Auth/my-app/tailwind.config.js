@@ -6,7 +6,32 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    container: {
+      screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1440px',
+      },
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        // sm: '2rem',
+        // lg: '4rem',
+        // xl: '5rem',
+        // '2xl': '6rem',
+      },
+    },
+    extend: {
+      colors: {
+        'bg-primary': 'var(--bg-primary)',
+        'text-primary': 'var(--text-primary)',
+        'text-secondary': 'var(--text-secondary)',
+        'nav-primary': 'var(--nav-primary)',
+        'border-primary': 'var(--border-primary)',
+        'text-third': 'var(--text-third)'
+      },
+    },
   },
   plugins: [],
 }

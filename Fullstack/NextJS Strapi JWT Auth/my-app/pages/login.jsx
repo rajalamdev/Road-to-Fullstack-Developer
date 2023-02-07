@@ -12,7 +12,7 @@ export async function getServerSideProps(ctx){
     }
 }
 
-export default function login() {
+export default function Login() {
     const [field, setField] = useState({})
 
     const fieldHandler = (e) => {
@@ -42,16 +42,7 @@ export default function login() {
                 maxAge: 30 * 24 * 60 * 60,
                 path: "/",
             })
-            nookies.set(null, "username", loginRes.user.username, {
-                maxAge: 30 * 24 * 60 * 60,
-                path: "/",
-            })
-            nookies.set(null, "id", loginRes.user.id, {
-                maxAge: 30 * 24 * 60 * 60,
-                path: "/",
-            })
-
-            Router.replace("/dashboard")
+            Router.replace("/")
         }
     }
 

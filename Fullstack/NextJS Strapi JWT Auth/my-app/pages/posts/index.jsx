@@ -19,14 +19,14 @@ export async function getServerSideProps(ctx){
 
     return {
         props: {
-            posts: resPosts.data,
+            posts: resPosts.data ? resPosts.data : [],
             token: verify,
             currentUser
         }
     }
 }
 
-export default function index({posts, token, currentUser}) {
+export default function Index({posts, token, currentUser}) {
     const [postsApi, setPostsApi] = useState(posts); 
     const userId = Number(currentUser.id);
 
@@ -99,7 +99,7 @@ export default function index({posts, token, currentUser}) {
   return ( 
       <>
         <Navbar />
-        <div className="pt-24">
+        <div>
             <div className="text-3xl text-center mb-4">Posts</div>
             <Posts data={{postsApi, token, currentUser}} />
         </div>

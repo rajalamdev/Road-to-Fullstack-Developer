@@ -73,17 +73,17 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
         {postsApi.map(post => {
             return (
                 <div key={post.id} className="mb-8 w-max-[350px] h-[100%] flex justify-center">
-                    <div className="w-[350px] border-2 py-2 rounded-md">
-                        <h1 className="font-bold text-xl px-2 py-2">{post.attributes.title}</h1>
-                        <Image src={`${process.env.PUBLIC_API_URL}${post.attributes.image.data.attributes.url}`} width={350} height={100} /> 
-                        <div className="px-2 py-2">
-                            <p>Post by {post.attributes.user.data ? post.attributes.user.data.attributes.username : "Admin"}</p>
-                            <p>{new Date(post?.attributes.createdAt).toLocaleDateString("en-US", {
+                    <div className="w-[350px] border-2 border-border-primary py-2 rounded-md text-text-secondary">
+                        <p className="px-2 py-2 text-text-primary text-base">Post by {post.attributes.user.data ? post.attributes.user.data.attributes.username : "Admin"}</p>
+                        <Image src={`${post.attributes.image.data?.attributes.url}`} width={350} height={100} /> 
+                        <div className="px-2 py-2 space-y-4">
+                            <p className="text-sm">{post.attributes.title}</p>
+                            <button onClick={(e) => likeDislikeHandler(e, post)} value={false} className="px-3 py-2 text-sm bg-red-500 text-white rounded-full hover:bg-red-600">Like : {post.attributes.likedBy.data.length}</button>
+                            <p className="text-xs">{new Date(post?.attributes.createdAt).toLocaleDateString("en-US", {
                                 year: "numeric",
                                 month: "long",
                                 day: "numeric"
                             })}</p>
-                            <button onClick={(e) => likeDislikeHandler(e, post)} value={false} className="border px-3 py-2 text-sm bg-red-500 text-white rounded-full hover:bg-red-600">Like : {post.attributes.likedBy.data.length}</button>
                         </div>
                     </div>
                 </div>

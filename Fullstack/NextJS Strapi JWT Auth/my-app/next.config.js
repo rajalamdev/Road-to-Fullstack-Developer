@@ -5,10 +5,10 @@ const nextConfig = {
 
 module.exports = {
   env: {
-    PUBLIC_API_URL: process.env.PUBLIC_API_URL,
+    PUBLIC_API_URL: 'http://localhost:1337',
   },
   images: {
-    domains: ['localhost'],
+    domains: ['strapi-production-ba85.up.railway.appundefined', 'res.cloudinary.com', 'localhost'],
   },
 }
 
