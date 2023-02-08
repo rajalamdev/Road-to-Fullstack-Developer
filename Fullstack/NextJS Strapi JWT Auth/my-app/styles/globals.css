@@ -6,15 +6,15 @@
     :root {
         --nav-primary: rgba(19, 17, 28, .8);
         --bg-primary: rgb(19, 17, 28);
-        --text-primary: #eee;
-        --text-secondary: #ccc;
-        --text-third: #aaa;
+        --text-primary: #fff;
+        --text-secondary: #ddd;
+        --text-third: #899096;
         --border-primary: #222;
         --border-secondary: #777
     }
 
     body {
-        @apply bg-bg-primary text-text-primary
+        @apply bg-bg-primary text-text-primary font-normal
     }
 }
 

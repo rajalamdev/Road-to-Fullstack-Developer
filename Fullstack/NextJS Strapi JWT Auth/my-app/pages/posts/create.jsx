@@ -43,7 +43,6 @@ export default function Create({token, currentUser}) {
         body: JSON.stringify({
             "data": {
                 "caption": caption,
-                "slug": caption,
                 "user": currentUser,
                 "image": resUpload[0].id
             }

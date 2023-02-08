@@ -22,7 +22,7 @@ export async function getServerSideProps(ctx){
 }
 
 export default function Edit({currentUser, me, token}) {
-    const [image, setImage] = useState(me.image.id) 
+    const [image, setImage] = useState(me.image?.id) 
     const [name, setName] = useState(me.name) 
     const [bio, setBio] = useState(me.bio) 
     const [location, setLocation] = useState(me.location) 

@@ -87,10 +87,6 @@
     "link": {
       "type": "string"
     },
-    "slug": {
-      "type": "uid",
-      "targetField": "username"
-    },
     "image": {
       "type": "media",
       "multiple": false,

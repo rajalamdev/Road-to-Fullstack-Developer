@@ -35,7 +35,7 @@ export default function TopNav({currentUser}) {
 
   return (
     <>
-        <div ref={topNav} className="left-0 transition-all duration-200 right-0 py-[20px] absolute top-2 border-border-primary justify-center flex items-center z-10">
+        <div ref={topNav} className="left-0 transition-all z-50 duration-200 right-0 py-[20px] absolute top-2 border-border-primary justify-center flex items-center z-10">
             <h1 className="text-xl font-medium">{current}</h1>
         </div>
     </>

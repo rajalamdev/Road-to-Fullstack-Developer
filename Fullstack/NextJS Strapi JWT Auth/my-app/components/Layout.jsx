@@ -19,7 +19,7 @@ export default function Layout({children, currentUser}){
             <Navbar currentUser={currentUser} />
         </header>
         <main>
-            <div className="container pt-28 pb-20">
+            <div className="pt-28 pb-20">
                 {children}
             </div>
         </main>

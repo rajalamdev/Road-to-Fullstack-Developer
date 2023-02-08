@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 export async function getServerSideProps(ctx){  
   const verify = await verifyToken(ctx)
   
-  const reqPosts = await fetch(`${process.env.PUBLIC_API_URL}/api/posts?populate=*`, {
+  const reqPosts = await fetch(`${process.env.PUBLIC_API_URL}/api/posts?populate[user][populate]=image&populate[likedBy]=*&populate[image]=*`, {
       headers: {
           "Authorization": "Bearer " + verify
       }
