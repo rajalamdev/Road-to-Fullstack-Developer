@@ -55,7 +55,7 @@ export default function Create({token, currentUser}) {
   return (
     <>
         <div>
-            <form onSubmit={uploadImage} className="flex flex-col gap-6 mx-auto max-w-[500px] text-sm">
+            <form onSubmit={uploadImage} className="flex flex-col gap-6 mx-auto max-w-[500px] text-sm px-4">
                 <div className="flex justify-center">
                     <div className="relative after:absolute after:block after:content-['Caption'] after:bg-bg-primary after:left-3 after:-top-[6px] after:px-1 after:text-blue-400"></div>
                     <input type="text" className="w-[90%] h-8 rounded mt-1 outline-none self-center bg-bg-primary ring-1 ring-border-secondary px-4 focus:w-full transition-all duration-300 focus:ring-2 focus:ring-blue-400" name="name" onChange={(e) => setCaption(e.target.value)} />

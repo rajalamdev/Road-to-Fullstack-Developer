@@ -38,4 +38,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 # Packages 
-yarn add nookies javascript-time-ago @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-regular-svg-icons
+yarn add nookies javascript-time-ago @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons 
+@fortawesome/free-regular-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/react-fontawesome @fortawesome/react-fontawesome@latest
+

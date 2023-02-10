@@ -30,7 +30,8 @@ module.exports = {
         'nav-primary': 'var(--nav-primary)',
         'border-primary': 'var(--border-primary)',
         'text-third': 'var(--text-third)',
-        'border-secondary': 'var(--border-secondary)'
+        'border-secondary': 'var(--border-secondary)',
+        'bg-hover': 'var(--bg-hover)'
       },
     },
   },

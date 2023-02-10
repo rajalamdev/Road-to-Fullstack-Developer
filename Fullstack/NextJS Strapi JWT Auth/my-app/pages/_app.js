@@ -1,13 +1,18 @@
 import App from 'next/app'
 import Layout from '@/components/Layout'
 import '@/styles/globals.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { AppProvider } from '@/context/AppContext'
+config.autoAddCss = false
 
-export default function MyApp({ Component, pageProps, currentUser }) {
-
+export default function MyApp({ Component, pageProps, currentUser, token }) {
   return (
-    <Layout currentUser={currentUser}>
-      <Component {...pageProps} currentUser={currentUser} />
-    </Layout>
+    <AppProvider>
+      <Layout currentUser={currentUser} token={token}>
+        <Component {...pageProps} currentUser={currentUser} />
+      </Layout>
+    </AppProvider>
   )
 }
 
@@ -23,5 +28,5 @@ MyApp.getInitialProps = async (ctx) => {
 
   const resMyProfile = await reqMyProfile.json()
 
-  return { ...appProps, currentUser: {id: resMyProfile.id, username: resMyProfile.username}}
+  return { ...appProps, currentUser: {id: resMyProfile.id, username: resMyProfile.username}, token: token}
 }

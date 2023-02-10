@@ -6,6 +6,7 @@
     :root {
         --nav-primary: rgba(19, 17, 28, .8);
         --bg-primary: rgb(19, 17, 28);
+        --bg-hover: rgb(26, 24, 35);
         --text-primary: #fff;
         --text-secondary: #ddd;
         --text-third: #899096;

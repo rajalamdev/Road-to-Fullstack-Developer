@@ -65,7 +65,7 @@ export default function Edit({currentUser, me, token}) {
 
   return (
     <div>
-        <form onSubmit={reqEdit} className="flex flex-col gap-6 mx-auto max-w-[500px] text-sm">
+        <form onSubmit={reqEdit} className="flex flex-col gap-6 mx-auto max-w-[500px] text-sm px-4">
             <div className="flex justify-center">
             <div className="relative after:absolute after:block after:content-['Picture'] after:bg-bg-primary after:left-8 after:-top-[12px] after:px-1 after:text-blue-400"></div>
                 <input type="file" onChange={(e) => {

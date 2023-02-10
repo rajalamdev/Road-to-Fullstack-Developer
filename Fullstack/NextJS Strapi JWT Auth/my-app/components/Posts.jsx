@@ -1,14 +1,22 @@
 import { aDayAgo } from "@/utils/aDayAgo";
 import Image from "next/image"
 import Link from "next/link";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
+import { faComment } from "@fortawesome/free-regular-svg-icons";
+import { createRef, useEffect, useRef } from "react";
 
 export default function Posts({data: {postsApi, token, currentUser}}) {
     const userId = Number(currentUser.id);
+    const likeCount = useRef([])
 
-    async function dislikeHandler(e, post){
+
+    
+
+    async function dislikeHandler(e, post, likeElement){
         const liked = []
     
-        const decrementLike = post.attributes.likedBy.data.length - 1;
+        const decrementLike = Number(post.attributes.likedBy.data.length) - 1;
         const dislike = post.attributes.likedBy.data.filter(user => {
             return user.id !== userId
         })
@@ -18,8 +26,10 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
         })
     
         post.attributes.likedBy.data = dislike;
+        likeElement.textContent = decrementLike
+        e.target.parentNode.classList.remove("text-red-500")
+
         
-        e.target.innerHTML = "Like: " + decrementLike
         await fetch(`${process.env.PUBLIC_API_URL}/api/posts/${post.id}`, {
             method: "PUT",
             headers: {
@@ -34,18 +44,19 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
         })        
     }
     
-    async function likeHandler(e, post){
+    async function likeHandler(e, post, likeElement){
         const liked = []           
-        const incrementLiked = post.attributes.likedBy.data.length + 1;
+        const incrementLiked = Number(post.attributes.likedBy.data.length) + 1;
         
         post.attributes.likedBy.data.map(user => {
             liked.push(user.id)
         })
         liked.push(userId)
+
+        likeElement.textContent = incrementLiked
+        e.target.parentNode.classList.add("text-red-500")
     
         post.attributes.likedBy.data = [...post.attributes.likedBy.data, {id: userId}];
-    
-        e.target.innerHTML = "Like: " + incrementLiked
     
         const reqLiked = await fetch(`${process.env.PUBLIC_API_URL}/api/posts/${post.id}`, {
             method: "PUT",
@@ -61,22 +72,23 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
         })
     }
 
-    function likeDislikeHandler(e, post){
+    function likeDislikeHandler(e, post, i){
+        const currentCountLikeElement = likeCount.current[i]
         if(post.attributes.likedBy.data.some(user => user.id === userId)){
-            return dislikeHandler(e, post)
+            return dislikeHandler(e, post, currentCountLikeElement)
         }else {
-            return likeHandler(e, post)
+            return likeHandler(e, post, currentCountLikeElement)
         }
         
    }
 
   return (
     <>
-        {postsApi.map(post => {
+        {postsApi.map((post, i) => {
             return (
-                <div key={post.id} className="w-max-[390px] h-[100%] flex justify-center ">
+                <div key={post.id} className="w-max-[390px] h-[100%] flex justify-center">
                     <div className="w-[390px] border border-border-primary text-text-secondary">
-                        <div className="flex px-4 py-3 gap-3 items-start">
+                        <div className="flex px-3 py-3 gap-3 items-start">
                             <div className="relative z-10 w-[40px] h-[40px]">
                                 <Link href={`/${post.attributes.user.data.attributes.username}`}>
                                     <Image src={post.attributes.user.data.attributes.image.data ? post.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="rounded-full object-cover" />
@@ -94,14 +106,21 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
                                 </div>
                                 <p className="text-sm text-text-secondary">{post.attributes.caption}</p>
                             </div>
+                            <div className="text-right flex-1">
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </div>
                         </div>
                         <div>
                         <div className="w-full relative aspect-square">
                             <Image src={`${post.attributes.image.data?.attributes.url}`} fill className="object-cover" /> 
                         </div>
                         </div>
-                        <div className="px-2 py-4 space-y-4">
-                            <button onClick={(e) => likeDislikeHandler(e, post)} value={false} className="px-3 py-2 text-sm bg-red-500 text-white rounded-full hover:bg-red-600">Like : {post.attributes.likedBy.data.length}</button>
+                        <div className="px-3 py-4 w-max flex gap-6">
+                            <div className="flex gap-2 items-start">
+                                <FontAwesomeIcon icon={faHeart} size={"lg"} className={`${post.attributes.likedBy.data.some(user => user.id === userId) ? "text-red-500" : ""} hover:cursor-pointer`} onClick={(e) => likeDislikeHandler(e, post, i)} />
+                                <div ref={element => likeCount.current[i] = element} className="text-xs">{post.attributes.likedBy.data.length}</div>
+                            </div>
+                            <FontAwesomeIcon icon={faComment} size={"lg"} />
                         </div>
                     </div>
                 </div>

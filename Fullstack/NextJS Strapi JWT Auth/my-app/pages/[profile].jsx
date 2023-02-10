@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { formatDate } from "@/utils/formatDate";
 import Router from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 export async function getServerSideProps(ctx){
     const verify = await verifyToken(ctx);
@@ -27,11 +29,17 @@ export async function getServerSideProps(ctx){
       }
     })
 
+    const start =  [2, 3, 10, 23, 5, 1]
+
     const resMyPost = await reqMyPosts.json();
+    const sortenedPostByDate = resMyPost.data.sort((a, b) => {
+       return new Date(b.attributes.createdAt).getTime() - new Date(a.attributes.createdAt).getTime()
+    })
+
 
     return {
         props: {
-          postsApi: resMyPost.data ? resMyPost.data : [],
+          postsApi: sortenedPostByDate,
           me: resMyProfile[0] || null,
           token: verify,          
           params: ctx.params.profile
@@ -116,10 +124,10 @@ export default function Dashboard({me, postsApi, token, currentUser, params}) {
   return (
     <>
       <div>
-        <div className="mb-10 pb-10 space-y-4 max-w-[350px] mx-auto border-b border-border-primary">
+        <div className="mb-10 space-y-4 max-w-[350px] mx-auto px-3">
           <div className="flex gap-4 justify-center items-center">
-            <div className="relative w-[100px] h-[100px]">
-              <Image src={me.image ? me.image.url : "/profile-default.png"} fill className="rounded-full object-cover" />
+            <div className="relative w-[100%] h-[100px] rounded-full overflow-hidden">
+              <Image src={me.image ? me.image.url : "/profile-default.png"} className="object-cover" fill />
             </div>
             <div className="flex-col flex items-center">
               <span>{me?.posts.length}</span>
@@ -139,8 +147,18 @@ export default function Dashboard({me, postsApi, token, currentUser, params}) {
             <p>{me?.bio}</p>
             <a className="text-blue-400" href={`${me?.link}`}>{me?.link}</a>
             <div className="text-text-third mt-2">
-              <p>{me?.location}</p>
-              <p>Joined {formatDate(me?.createdAt)}</p>
+              <div className="flex gap-2 items-center">
+                {me?.location && (
+                  <>
+                    <FontAwesomeIcon icon={faLocationDot} size="xs" />
+                    <p>{me.location}</p>
+                  </>
+                )}
+              </div>
+              <div className="flex gap-2 items-center">
+                <FontAwesomeIcon icon={faCalendar} size="xs" />
+                <p>Joined {formatDate(me?.createdAt)}</p>
+              </div>
             </div>
           </div>
           <div>
@@ -149,7 +167,6 @@ export default function Dashboard({me, postsApi, token, currentUser, params}) {
             ): (
               <button className="border rounded py-1 px-3 text-sm cursor-pointer" onClick={(e) => followUnfollowHandler(me, currentUser, e)}>{me.followers.some(user => user.id === currentUser.id) ? "Unfollow" : "Follow"}</button>
             )}
-            
           </div>
         </div>
       </div>
