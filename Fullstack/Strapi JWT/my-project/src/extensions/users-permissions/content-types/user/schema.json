@@ -109,6 +109,18 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "inversedBy": "followers"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "user"
+    },
+    "reply": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::reply.reply",
+      "inversedBy": "user"
     }
   }
 }

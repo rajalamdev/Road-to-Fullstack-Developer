@@ -21,7 +21,7 @@ export async function getServerSideProps(ctx){
     })
     const resMyProfile = await reqMyProfile.json()
 
-    const reqMyPosts = await fetch(`${process.env.PUBLIC_API_URL}/api/posts?populate[user][populate]=image&populate[likedBy]=*&populate[image]=*&filters[user][username]=${ctx.params.profile}`, {
+    const reqMyPosts = await fetch(`${process.env.PUBLIC_API_URL}/api/posts?populate[user][populate]=image&populate[likedBy]=*&populate[image]=*&populate[comments][populate][user][populate][0]=image&populate[comments][populate][replies][populate][user][populate][0]=image&filters[user][username]=${ctx.params.profile}`, {
       method: "GET",
       headers: {
         "Authorization": "Bearer " + verify,

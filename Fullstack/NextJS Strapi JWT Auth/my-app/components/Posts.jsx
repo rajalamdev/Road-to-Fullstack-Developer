@@ -4,14 +4,15 @@ import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { faComment } from "@fortawesome/free-regular-svg-icons";
-import { createRef, useEffect, useRef } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
+import Comments from "./Comments";
+import { UseAppContext } from "@/context/AppContext";
 
 export default function Posts({data: {postsApi, token, currentUser}}) {
+    const context = UseAppContext()
     const userId = Number(currentUser.id);
+    const [comment, setComment] = useState(false)
     const likeCount = useRef([])
-
-
-    
 
     async function dislikeHandler(e, post, likeElement){
         const liked = []
@@ -79,19 +80,30 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
         }else {
             return likeHandler(e, post, currentCountLikeElement)
         }
-        
+   }
+
+   function commentHandler(e, post){
+    context.commentElement.current.map(element => {
+        if(element.id == post.id){
+            element.classList.remove("-bottom-full")
+            element.classList.add("bottom-0")
+        } else{
+            element.classList.remove("bottom-0")
+            element.classList.add("-bottom-full")
+        }
+    })
    }
 
   return (
     <>
         {postsApi.map((post, i) => {
             return (
-                <div key={post.id} className="w-max-[390px] h-[100%] flex justify-center">
+                <div key={post.id} className="max-w-[390px] mx-auto h-[100%] flex justify-center">
                     <div className="w-[390px] border border-border-primary text-text-secondary">
                         <div className="flex px-3 py-3 gap-3 items-start">
                             <div className="relative z-10 w-[40px] h-[40px]">
                                 <Link href={`/${post.attributes.user.data.attributes.username}`}>
-                                    <Image src={post.attributes.user.data.attributes.image.data ? post.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="rounded-full object-cover" />
+                                    <Image src={post.attributes.user.data?.attributes.image.data ? post.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="rounded-full object-cover" />
                                 </Link>
                             </div>
                             <div className="space-y-1">
@@ -112,7 +124,7 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
                         </div>
                         <div>
                         <div className="w-full relative aspect-square">
-                            <Image src={`${post.attributes.image.data?.attributes.url}`} fill className="object-cover" /> 
+                            <Image src={`${post.attributes.image?.data?.attributes.url}`} fill className="object-cover" /> 
                         </div>
                         </div>
                         <div className="px-3 py-4 w-max flex gap-6">
@@ -120,7 +132,19 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
                                 <FontAwesomeIcon icon={faHeart} size={"lg"} className={`${post.attributes.likedBy.data.some(user => user.id === userId) ? "text-red-500" : ""} hover:cursor-pointer`} onClick={(e) => likeDislikeHandler(e, post, i)} />
                                 <div ref={element => likeCount.current[i] = element} className="text-xs">{post.attributes.likedBy.data.length}</div>
                             </div>
-                            <FontAwesomeIcon icon={faComment} size={"lg"} />
+                            <FontAwesomeIcon icon={faComment} className="cursor-pointer" size={"lg"} onClick={(e) => commentHandler(e, post)} />
+                        </div>
+                    </div>
+                    <div ref={element => context.commentElement.current[i] = element} id={post.id} className="fixed -bottom-full transition-all z-50 bg-bg-primary duration-300 border border-border-primary max-w-full sm:max-w-[800px] left-0 right-0 mx-auto h-full overflow-auto sm:h-[60%] sm:rounded-t-xl">
+                        <div className="flex w-full">
+                            <div className="max-w-[390px] hidden sm:block">
+                                <div className="sticky top-0">
+                                    <div className="w-[390px] relative aspect-square">
+                                        <Image src={`${post.attributes.image?.data?.attributes.url}`} fill className="object-cover" /> 
+                                    </div>
+                                </div>
+                            </div>
+                            <Comments data={{post, currentUser, token}} />
                         </div>
                     </div>
                 </div>

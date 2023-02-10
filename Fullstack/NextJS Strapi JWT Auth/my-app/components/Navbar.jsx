@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function Navbar({currentUser}) {
   return (
-    <div className="flex z-50 justify-center w-full items-center border-t border-border-primary fixed bottom-0 left-0 right-0 bg-bg-primary gap-10 py-4">
+    <div className="flex z-40 justify-center w-full items-center border-t border-border-primary fixed bottom-0 left-0 right-0 bg-bg-primary gap-10 py-4">
       <Link href="/">
         <FontAwesomeIcon icon={faHome} size="lg" />
       </Link>

@@ -20,7 +20,7 @@ MyApp.getInitialProps = async (ctx) => {
   const token = ctx.ctx.req.cookies.token
 
   const appProps = await App.getInitialProps(ctx);
-  const reqMyProfile = await fetch(`${process.env.PUBLIC_API_URL}/api/users/me`, {
+  const reqMyProfile = await fetch(`${process.env.PUBLIC_API_URL}/api/users/me?populate=image`, {
     headers: {
         "Authorization": "Bearer " + token
     }
@@ -28,5 +28,5 @@ MyApp.getInitialProps = async (ctx) => {
 
   const resMyProfile = await reqMyProfile.json()
 
-  return { ...appProps, currentUser: {id: resMyProfile.id, username: resMyProfile.username}, token: token}
+  return { ...appProps, currentUser: {id: resMyProfile.id, username: resMyProfile.username, image: resMyProfile.image}, token: token}
 }

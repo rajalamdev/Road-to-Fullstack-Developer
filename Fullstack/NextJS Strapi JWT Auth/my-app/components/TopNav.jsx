@@ -36,7 +36,7 @@ export default function TopNav({currentUser, token}) {
 
       context.setSearchUsersApi(() => resSearch)
 
-      const reqSearchPosts = await fetch(`${process.env.PUBLIC_API_URL}/api/posts?populate[user][populate]=image&populate[likedBy]=*&populate[image]=*&filters[$or][0][caption][$contains]=${search}&filters[$or][1][user][username][$contains]=${search}`, {
+      const reqSearchPosts = await fetch(`${process.env.PUBLIC_API_URL}/api/posts?populate[user][populate]=image&populate[likedBy]=*&populate[image]=*&filters[$or][0][caption][$contains]=${search}&populate[comments][populate][user][populate][0]=image&populate[comments][populate][replies][populate][user][populate][0]=image&filters[$or][1][user][username][$contains]=${search}`, {
         headers: {
             "Authorization": "Bearer " + token
         }
@@ -78,7 +78,7 @@ export default function TopNav({currentUser, token}) {
   }  
   return (
     <>
-        <div ref={topNav} className="left-0 transition-all z-50 duration-200 right-0 py-[20px] absolute top-2 border-border-primary">
+        <div ref={topNav} className="left-0 transition-all z-40 duration-200 right-0 py-[20px] absolute top-2 border-border-primary">
             <div className="max-w-[390px] sm:max-w-[500px] mx-auto flex justify-between items-center px-4">
               <FontAwesomeIcon onClick={() => router.back()} icon={faChevronLeft} size="lg" />
               {currentPath === "/search" ? (
