@@ -13,6 +13,8 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
     const userId = Number(currentUser.id);
     const [comment, setComment] = useState(false)
     const likeCount = useRef([])
+    const [currentPostId, setCurentPostId] = useState()
+    const [currentI, setCurrentI] = useState()
 
     async function dislikeHandler(e, post, likeElement){
         const liked = []
@@ -54,7 +56,7 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
         })
         liked.push(userId)
 
-        likeElement.textContent = incrementLiked
+        likeElement.textContent = postIdincrementLiked
         e.target.parentNode.classList.add("text-red-500")
     
         post.attributes.likedBy.data = [...post.attributes.likedBy.data, {id: userId}];
@@ -82,7 +84,10 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
         }
    }
 
-   function commentHandler(e, post){
+   function commentHandler(e, post, i){
+    setCurentPostId(post.id)
+    setCurrentI(i)
+    context.getHighestId();
     context.commentElement.current.map(element => {
         if(element.id == post.id){
             element.classList.remove("-bottom-full")
@@ -132,7 +137,7 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
                                 <FontAwesomeIcon icon={faHeart} size={"lg"} className={`${post.attributes.likedBy.data.some(user => user.id === userId) ? "text-red-500" : ""} hover:cursor-pointer`} onClick={(e) => likeDislikeHandler(e, post, i)} />
                                 <div ref={element => likeCount.current[i] = element} className="text-xs">{post.attributes.likedBy.data.length}</div>
                             </div>
-                            <FontAwesomeIcon icon={faComment} className="cursor-pointer" size={"lg"} onClick={(e) => commentHandler(e, post)} />
+                            <FontAwesomeIcon icon={faComment} className="cursor-pointer" size={"lg"} onClick={(e) => commentHandler(e, post, i)} />
                         </div>
                     </div>
                     <div ref={element => context.commentElement.current[i] = element} id={post.id} className="fixed -bottom-full transition-all z-50 bg-bg-primary duration-300 border border-border-primary max-w-full sm:max-w-[800px] left-0 right-0 mx-auto h-full overflow-auto sm:h-[60%] sm:rounded-t-xl">
@@ -144,7 +149,7 @@ export default function Posts({data: {postsApi, token, currentUser}}) {
                                     </div>
                                 </div>
                             </div>
-                            <Comments data={{post, currentUser, token}} />
+                                <Comments data={{post, currentUser, token, currentPostId, currentI, postsApi}} />
                         </div>
                     </div>
                 </div>

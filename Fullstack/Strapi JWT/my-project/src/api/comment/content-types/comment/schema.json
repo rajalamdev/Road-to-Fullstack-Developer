@@ -29,9 +29,9 @@
     },
     "replies": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::reply.reply",
-      "mappedBy": "comment"
+      "mappedBy": "comments"
     }
   }
 }

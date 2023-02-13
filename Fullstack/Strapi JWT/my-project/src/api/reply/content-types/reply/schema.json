@@ -17,13 +17,13 @@
     },
     "user": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::users-permissions.user",
-      "mappedBy": "reply"
-    },
-    "comment": {
-      "type": "relation",
       "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "replies"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "manyToMany",
       "target": "api::comment.comment",
       "inversedBy": "replies"
     }

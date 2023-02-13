@@ -116,11 +116,11 @@
       "target": "api::comment.comment",
       "mappedBy": "user"
     },
-    "reply": {
+    "replies": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToMany",
       "target": "api::reply.reply",
-      "inversedBy": "user"
+      "mappedBy": "user"
     }
   }
 }
