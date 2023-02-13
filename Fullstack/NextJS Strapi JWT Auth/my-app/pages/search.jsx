@@ -52,7 +52,7 @@ export default function Search({token, currentUser}) {
                 return (
                   <Link href="/[profile]" as={`/${result.username}`} className="flex gap-2 py-4 hover:bg-bg-hover px-4">
                     <div className="relative w-[50px] h-[50px] rounded-full overflow-hidden">
-                      <Image src={result.image ? result.image.url : "/profile-default.png"} fill className="object-cover" />
+                      <Image alt="user" src={result.image ? result.image.url : "/profile-default.png"} fill className="object-cover" />
                     </div>
                     <div>
                       <p className="font-semibold">@{result.username}</p>

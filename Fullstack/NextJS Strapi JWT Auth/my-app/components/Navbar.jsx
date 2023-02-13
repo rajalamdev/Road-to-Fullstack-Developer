@@ -4,6 +4,7 @@ import { faUser, faHome, faMagnifyingGlass } from '@fortawesome/free-solid-svg-i
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import Router from "next/router";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Navbar({currentUser}) {
   return (
@@ -18,7 +19,10 @@ export default function Navbar({currentUser}) {
         <FontAwesomeIcon icon={faSquarePlus} size="lg" />
       </Link>
       <Link href="/[profile]" as={`/${currentUser.username}`}>
-        <FontAwesomeIcon icon={faUser} size="lg" />
+        <div className="relative w-[30px] h-[30px] overflow-hidden rounded-full">
+          <Image alt="user" src={currentUser.image ? currentUser.image.url : "/profile-default.png"} fill sizes="" />
+        </div>
+        {/* <FontAwesomeIcon icon={faUser} size="lg" /> */}
       </Link>
     </div>
   )

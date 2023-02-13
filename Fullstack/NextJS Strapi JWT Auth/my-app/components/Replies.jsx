@@ -83,7 +83,7 @@ export default function Replies({data: {comment, token, currentUser, i}}){
                 return (
                     <div className="flex gap-2">
                         <div className="relative z-10 w-[30px] h-[30px] rounded-full overflow-hidden">
-                            <Image src={reply.attributes.user.data.attributes.image.data ? reply.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="object-cover" />
+                            <Image alt="user" src={reply.attributes.user.data.attributes.image.data ? reply.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="object-cover" />
                         </div>
                         <div>
                             <p>@{reply.attributes.user.data.attributes.username}</p>

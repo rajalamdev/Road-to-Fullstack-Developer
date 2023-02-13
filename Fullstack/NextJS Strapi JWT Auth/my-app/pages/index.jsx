@@ -25,9 +25,9 @@ export async function getServerSideProps(ctx){
   }
 }
 
-
 export default function Home({posts, token, currentUser}) {
   const [postsApi, setPostsApi] = useState(posts); 
+
   return (
     <>
       <Head>

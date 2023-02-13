@@ -6,5 +6,5 @@ TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
 export function aDayAgo(date){
-    return timeAgo.format(new Date(date), 'mini')
+    return timeAgo.format(new Date(date), 'mini-minute-now')
 }

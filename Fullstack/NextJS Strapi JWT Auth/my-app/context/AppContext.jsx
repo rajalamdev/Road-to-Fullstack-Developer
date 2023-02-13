@@ -12,9 +12,6 @@ const AppProvider = ({children}) => {
     const [formReply, setFormReply] = useState()
     const [getHighestIdComment, setGetHighestIdComment] = useState(0)
 
-    useEffect(() => {
-    })
-
     const getHighestId = async () => {
         const cookies = parseCookies()
         const reqHighestCommentId = await fetch(`${process.env.PUBLIC_API_URL}/api/comments`, {

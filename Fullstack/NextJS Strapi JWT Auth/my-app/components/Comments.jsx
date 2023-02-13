@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react"
 import { UseAppContext } from "@/context/AppContext"
 import Replies from "./Replies"
 import { red } from "@mui/material/colors"
+import { aDayAgo } from "@/utils/aDayAgo"
 
 export default function Comments({data: {post, token, currentUser, currentPostId, currentI, postsApi}}){
     const context = UseAppContext()
@@ -17,17 +18,16 @@ export default function Comments({data: {post, token, currentUser, currentPostId
     const [currentPosts, setCurrentPosts] = useState(postsApi[currentI])
 
     function closeCommentHandler(){
-        context.commentElement.current.map(element => {
-            if(element.id == post.id){
-                element.classList.add("-bottom-full")
-                element.classList.remove("bottom-0")
+        context.commentElement.current?.map(element => {
+            if(element?.id == post.id){
+                element?.classList.add("-bottom-full")
+                element?.classList.remove("bottom-0")
             }
         })
     }
 
     useEffect(() => {
         setCurrentPosts(postsApi[currentI])
-        console.log(commentApi)
     })
 
 
@@ -40,7 +40,7 @@ export default function Comments({data: {post, token, currentUser, currentPostId
                 id: context.getHighestIdComment,
                 attributes: {
                     content: comment,   
-                    creratedAt: "2023-02-10T08:10:41.474Z",
+                    createdAt: new Date(),
                     user: {
                         data: {
                             attributes: {
@@ -92,7 +92,7 @@ export default function Comments({data: {post, token, currentUser, currentPostId
                 id: copyComment[findIndexTodos].id,
                 attributes: {
                     content: copyComment[findIndexTodos].attributes.content,   
-                    creratedAt: "2023-02-10T08:10:41.474Z",
+                    createdAt: copyComment[findIndexTodos].attributes.createdAt,
                     user: {
                         data: {
                             attributes: {
@@ -113,7 +113,7 @@ export default function Comments({data: {post, token, currentUser, currentPostId
                             {
                                 attributes: {
                                     replyText: comment,
-                                    createdAt: "2023-02-10T19:55:36.644Z",
+                                    createdAt: new Date(),
                                     user: {
                                         data: {
                                             attributes: {
@@ -152,8 +152,6 @@ export default function Comments({data: {post, token, currentUser, currentPostId
                     }
                 })
             })
-
-            console.log(await reqReply.json())
         }
         setComment("")
     }
@@ -183,7 +181,7 @@ export default function Comments({data: {post, token, currentUser, currentPostId
                             <FontAwesomeIcon icon={faPaperPlane} className="absolute right-4 text-blue-400 top-[15px] cursor-pointer bg-bg-primary pl-2" />
                         </button>
                     </div>
-                    <Image src={currentUser.image ? currentUser.image.url : "/profile-default.png"} width={30} height={30} className="rounded-full" />
+                    <Image alt="user" src={currentUser.image ? currentUser.image.url : "/profile-default.png"} width={30} height={30} className="rounded-full" />
                 </div>
                 {isReply && (
                     <div className="px-4 py-2 flex items-center text-text-third transition-all top-0 justify-bet">
@@ -196,12 +194,15 @@ export default function Comments({data: {post, token, currentUser, currentPostId
                 {commentApi.length ? (
                     commentApi.map((comment) => {
                         return (
-                            <div className="flex gap-2 py-4 px-4">
+                            <div key={comment.id} className="flex gap-2 py-4 px-4">
                                 <div className="relative z-10 w-[50px] h-[50px] rounded-full overflow-hidden">
-                                    <Image src={comment.attributes.user.data.attributes.image.data ? comment.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="object-cover" />
+                                    <Image alt="user" src={comment.attributes.user.data.attributes.image.data ? comment.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="object-cover" />
                                 </div>
                                 <div>
-                                    <p className="font-semibold">@{comment.attributes.user.data.attributes.username}</p>
+                                    <div className="flex gap-2 items-center">
+                                        <p className="font-semibold">@{comment.attributes.user.data.attributes.username}</p>
+                                        <p className="text-text-third text-sm">{aDayAgo(comment.attributes.createdAt)}</p>
+                                    </div>
                                     <p className="text-text-secondary text-sm">{comment.attributes.content}</p>
                                     <button onClick={() => {
                                         replyFormHandler(comment)
@@ -209,12 +210,16 @@ export default function Comments({data: {post, token, currentUser, currentPostId
                                     }}>Reply</button>
                                     {comment.attributes.replies.data.map(reply => {
                                         return (
-                                            <div className="flex gap-2 mt-4">
+                                            <div key={reply.id} className="flex gap-2 mt-4">
                                                 <div className="relative z-10 w-[30px] h-[30px] rounded-full overflow-hidden">
-                                                    <Image src={reply.attributes.user.data.attributes.image.data ? reply.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="object-cover" />
+                                                    <Image alt="user" src={reply.attributes.user.data.attributes.image.data ? reply.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="object-cover" />
                                                 </div>
                                                 <div>
-                                                    <p>@{reply.attributes.user.data.attributes.username}</p>
+                                                    <div className="flex gap-2 items-center">
+                                                        <p>@{reply.attributes.user.data.attributes.username}</p>
+                                                        <p className="text-text-third text-sm">{aDayAgo(reply.attributes.createdAt)}</p>
+                                                    </div>
+                                                
                                                     <p className="text-text-secondary text-sm">{reply.attributes.replyText}</p>
                                                     <button onClick={() => {
                                                         replyFormHandler(reply)

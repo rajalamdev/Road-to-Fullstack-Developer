@@ -127,7 +127,7 @@ export default function Dashboard({me, postsApi, token, currentUser, params}) {
         <div className="mb-10 space-y-4 max-w-[350px] mx-auto px-3">
           <div className="flex gap-4 justify-center items-center">
             <div className="relative w-[100%] h-[100px] rounded-full overflow-hidden">
-              <Image src={me.image ? me.image.url : "/profile-default.png"} className="object-cover" fill />
+              <Image src={me.image ? me.image.url : "/profile-default.png"} className="object-cover" fill alt="user" />
             </div>
             <div className="flex-col flex items-center">
               <span>{me?.posts.length}</span>
@@ -171,11 +171,7 @@ export default function Dashboard({me, postsApi, token, currentUser, params}) {
         </div>
       </div>
       <div>
-        {!postsApi.length ? (
-          <div className="text-center border border-dashed border-border-secondary w-max mx-auto px-4 py-2 rounded text-sm text-text-third mt-24">This user doesn't have any post yet : /</div>
-        ): (
           <Posts data={{postsApi, token, currentUser}} />
-        )}
       </div>
     </>
   )
