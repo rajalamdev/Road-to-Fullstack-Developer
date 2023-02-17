@@ -1,6 +1,11 @@
 import { useState } from "react"
 import Link from "next/link"
 import { authToken } from "./api/auth/authToken"
+import Router from "next/router"
+import Image from "next/image"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+import Head from "next/head"
 
 export async function getServerSideProps(ctx){
     const verify = await authToken(ctx)
@@ -14,10 +19,11 @@ export default function Register() {
   const [field, setField] = useState({})
   const [loading, setLoading] = useState(false) 
   const [success, setSuccess] = useState(false)
+  const [message, setMessage] = useState("")
 
   const registerHandler = async (e) => {
-    setLoading(true)
     e.preventDefault();
+    setLoading(true)
     const reqRegister = await fetch(`${process.env.PUBLIC_API_URL}/api/auth/local/register`, {
         method: "POST",
         headers: {
@@ -27,14 +33,18 @@ export default function Register() {
     })
 
     const resRegister = await reqRegister.json()
-    setSuccess(true)
-    e.target.reset()
+    if(resRegister.jwt){
+        e.target.reset()
+        setSuccess(true)
+        
+        setTimeout(() => {
+            setSuccess(false)
+            Router.push("/login")
+        }, 1000)
+    }
+    setMessage(resRegister.error?.message)
     setLoading(false)
-
-    setTimeout(() => {
-        setSuccess(false)
-    }, 3000)
-  } 
+} 
   
   const fieldHandler = (e) => {
     const {name, value} = e.target;
@@ -45,32 +55,65 @@ export default function Register() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen w-full items-center justify-center bg-gray-900 text-white">
-        <form onSubmit={registerHandler} className="flex w-[30rem] flex-col space-y-10 relative">
-            <div className={`bg-green-500 absolute ${success ? "z-10" : "-z-10"} transition-all duration-300 ${success ? "translate-y-0" : "-translate-y-full"} -top-10 rounded-lg left-10 px-4 py-4 right-10 justify-between flex items-center`}>Your Accoun Has been registered! <span onClick={() => setSuccess(false)} className="text-lg font-bold cursor-pointer bg-green-400/50 px-[4px] rounded-sm">&#10005;</span></div>
-            <div className="text-center text-4xl font-medium">Register</div>
-            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
-                <input type="text" placeholder="Username" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" name="username" onChange={fieldHandler} />
-            </div>
-            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
-                <input type="email" placeholder="Email" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" name="email" onChange={fieldHandler} />
-            </div>
-            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
-                <input type="password" placeholder="Password" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" name="password" onChange={fieldHandler} />
-            </div>
-            <button type="submit" disabled={loading} className={`transform flex justify-center rounded-sm bg-indigo-600 py-2 font-bold duration-300 ${loading ? "cursor-not-allowed": "hover:bg-indigo-400" }`}>
-                {loading ? (
-                    <div role="status">
-                        <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-white" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                        </svg>
-                        <span class="sr-only">Loading...</span>
+    <>
+    <Head>
+        <title>Register</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.png" />
+    </Head>
+    <form onSubmit={registerHandler} className="mx-auto flex top-0 bottom-0 left-0 right-0 w-full fixed z-[50] items-center text-text-primary flex-wrap min-h-screen justify-center py-10 bg-bg-primary">
+            <div className="flex border-2 border-double border-border-primary rounded-md max-w-full py-5 sm:py-0">
+                <div className={`bg-green-500 fixed ${success ? "z-10" : "-z-10"} transition-all duration-300 ${success ? "translate-y-20" : "-translate-y-full"} max-w-[390px] mx-auto -top-10 rounded-lg left-10 px-4 py-4 right-10 justify-between flex items-center`}>Your Account has been registered! <span onClick={() => setSuccess(false)} className="text-lg font-bold cursor-pointer px-[4px] rounded-sm">&#10005;</span></div>
+                <div className="flex flex-wrap content-center justify-center rounded-l-md w-[384px] h-[512]">
+                    <div className="w-72">
+                        <h1 className="text-xl font-semibold">Register</h1>
+                        <small className="text-text-third">Welcome! Please enter your details</small>
+
+                        <div className="mb-3 mt-4">
+                            <label className="mb-2 block text-xs font-semibold">Username</label>
+                            <input  autoComplete="off" type="text" placeholder="Username" className="block w-full rounded-md border bg-bg-primary border-border-secondary focus:border-header-primary focus:outline-none focus:ring-1 focus:ring-header-primary py-1 px-1.5" name="username" onChange={fieldHandler} required />
+                        </div>
+
+                        <div className="mb-3">
+                            <label className="mb-2 block text-xs font-semibold">Email</label>
+                            <input autoComplete="off" type="text" placeholder="Email" className="block w-full bg-bg-primary rounded-md border border-border-secondary focus:border-header-primary focus:outline-none focus:ring-1 focus:ring-header-primary py-1 px-1.5" name="email" onChange={fieldHandler} required />
+                        </div>
+
+
+                        <div className="mb-3">
+                            <label className="mb-2 block text-xs font-semibold">Password</label>
+                            <input autoComplete="off" type="password" placeholder="*****" className="block w-full rounded-md border bg-bg-primary border-border-secondary focus:border-header-primary focus:outline-none focus:ring-1 focus:ring-header-primary py-1 px-1.5" name="password" onChange={fieldHandler} required />
+                        </div>
+
+                        <div className="mb-3">
+                            <p className="text-red-500 text-sm">{message}</p>
+                        </div>
+
+                        <div className="mb-3">
+                            <button disabled={loading} type="submit" className="mb-1.5 block w-full text-center bg-header-primary hover:bg-blue-800 px-2 py-1.5 rounded-md">
+                            {loading ? (
+                                <>
+                                    <FontAwesomeIcon icon={faSpinner} className="animate-spin" /> Loading...
+                                </>
+                            ): (
+                                <p>Register</p>
+                            )}
+                            </button>
+                        </div>
+
+                        <div className="text-center">
+                        <span className="text-xs text-text-third font-semibold">Already have an account?</span>
+                        <Link href="/login" className="text-xs font-semibold text-header-primary ml-1">Login</Link>
+                        </div>
                     </div>
-                ): "REGISTER"}
-            </button>
-            <div className="transform text-center font-semibold text-gray-500 duration-300">Already have an accound? <Link href="/login" className="underline text-gray-300">Login</Link></div>
+                </div>
+
+                <div className={`sm:flex hidden flex-wrap content-center justify-center rounded-r-md w-[384px] h-[512px] relative`}>
+                    <Image className="w-full h-full bg-center bg-no-repeat bg-cover rounded-r-md" src="https://i.imgur.com/9l1A4OS.jpeg" fill />
+                </div>
+            </div>
         </form>
-    </div>
+    </>
   )
 }

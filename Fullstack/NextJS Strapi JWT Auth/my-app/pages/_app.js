@@ -17,9 +17,12 @@ export default function MyApp({ Component, pageProps, currentUser, token }) {
 }
 
 MyApp.getInitialProps = async (ctx) => {
-  const token = ctx.ctx.req.cookies.token
+  const token = ctx?.ctx?.req?.cookies?.token
 
+  
   const appProps = await App.getInitialProps(ctx);
+  if(!token) return {...appProps}
+  
   const reqMyProfile = await fetch(`${process.env.PUBLIC_API_URL}/api/users/me?populate=image`, {
     headers: {
         "Authorization": "Bearer " + token

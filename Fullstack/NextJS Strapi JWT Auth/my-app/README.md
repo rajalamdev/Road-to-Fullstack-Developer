@@ -39,5 +39,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 # Packages 
 yarn add nookies javascript-time-ago @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons 
-@fortawesome/free-regular-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/react-fontawesome @fortawesome/react-fontawesome@latest
+@fortawesome/free-regular-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/react-fontawesome @fortawesome/react-fontawesome@latest react-loading-skeleton
 

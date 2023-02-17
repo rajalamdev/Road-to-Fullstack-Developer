@@ -1,20 +1,13 @@
 import Navbar from "./Navbar";
 import TopNav from "./TopNav";
-import Router from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { UseAppContext } from "@/context/AppContext";
 
 export default function Layout({children, currentUser, token}){
-    const navExcept = ["/login", "/register"]
-    const [currentPath, setCurrentPath] = useState()
-
-    useEffect(() => {
-        setCurrentPath(Router.pathname)
-    })
-    
+    const context = UseAppContext();
 
     return (
     <>
-        <header className={`${currentPath === "/login" || currentPath === "/register" ? "hidden": "flex"}`}>
+        <header className={`${context.currentPath === "/login" || context.currentPath === "/register" ? "hidden": ""}`}>
             <TopNav currentUser={currentUser} token={token} />
             <Navbar currentUser={currentUser} />
         </header>

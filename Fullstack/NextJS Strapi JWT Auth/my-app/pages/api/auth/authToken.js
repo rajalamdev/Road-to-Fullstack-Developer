@@ -2,7 +2,7 @@ export function authToken(ctx){
     return new Promise((resolve, reject) => {
         if(ctx.req.cookies.token) {
             return ctx.res.writeHead(302, {
-                location: "/dashboard"
+                location: "/"
                 
         }).end()}
         else{

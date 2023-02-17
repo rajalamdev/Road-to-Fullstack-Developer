@@ -31,7 +31,8 @@ module.exports = {
         'border-primary': 'var(--border-primary)',
         'text-third': 'var(--text-third)',
         'border-secondary': 'var(--border-secondary)',
-        'bg-hover': 'var(--bg-hover)'
+        'bg-hover': 'var(--bg-hover)',
+        'header-primary': 'var(--header-primary)'
       },
     },
   },

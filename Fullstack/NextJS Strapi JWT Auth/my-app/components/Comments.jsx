@@ -1,10 +1,8 @@
 import Image from "next/image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faL, faPaperPlane, faXmark, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
+import { faPaperPlane, faXmark, faChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useRef, useState } from "react"
 import { UseAppContext } from "@/context/AppContext"
-import Replies from "./Replies"
-import { red } from "@mui/material/colors"
 import { aDayAgo } from "@/utils/aDayAgo"
 
 export default function Comments({data: {post, token, currentUser, currentPostId, currentI, postsApi}}){
@@ -174,11 +172,11 @@ export default function Comments({data: {post, token, currentUser, currentPostId
                 <div className="py-4 flex items-center gap-4 px-4">
                     <FontAwesomeIcon icon={faChevronLeft} size="lg" onClick={closeCommentHandler} className="cursor-pointer px-[8px] py-[4px] rounded-full" />
                     <div className="w-full relative flex flex-wrap">
-                        <input ref={inputRef} type="text" className="w-full py-2 resize-none bg-bg-primary block mx-auto h-10 rounded-full mt-1 outline-none self-center ring-1 ring-border-secondary px-4 focus:w-full transition-all duration-300 focus:ring-2 focus:ring-blue-400" name="name" onChange={(e) => {
+                        <input autoComplete="off" ref={inputRef} type="text" className="w-full py-2 resize-none bg-bg-primary block mx-auto h-10 rounded-full mt-1 outline-none self-center ring-1 ring-border-secondary px-4 focus:w-full transition-all duration-300 focus:ring-2 focus:ring-header-primary" name="name" onChange={(e) => {
                             setComment(() => e.target.value)
                         }} value={comment} placeholder={`${isReply ? "Reply to " + usernameReply: "Comment as " + currentUser.username}`}></input>
                         <button type="submit">
-                            <FontAwesomeIcon icon={faPaperPlane} className="absolute right-4 text-blue-400 top-[15px] cursor-pointer bg-bg-primary pl-2" />
+                            <FontAwesomeIcon icon={faPaperPlane} className="absolute right-4 text-header-primary top-[15px] cursor-pointer bg-bg-primary pl-2" />
                         </button>
                     </div>
                     <Image alt="user" src={currentUser.image ? currentUser.image.url : "/profile-default.png"} width={30} height={30} className="rounded-full" />

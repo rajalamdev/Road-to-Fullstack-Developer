@@ -1,5 +1,6 @@
 const { createContext, useContext, useState, useRef, useEffect } = require("react");
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import Router from "next/router";
 
 const appContext = createContext()
 
@@ -11,6 +12,18 @@ const AppProvider = ({children}) => {
     const commentElement = useRef([])
     const [formReply, setFormReply] = useState()
     const [getHighestIdComment, setGetHighestIdComment] = useState(0)
+    const [currentPath, setCurrentPath] = useState();
+    const [userFilterButton, setUserFilterButton] = useState(true)
+    const [postsLoading, setPostsLoading] = useState(false)
+    const [usersLoading, setUsersLoading] = useState(false)
+
+
+    useEffect(() => {
+        setCurrentPath(Router.pathname)        
+        if(currentPath !== "/search"){
+            setUserFilterButton(true)
+        }
+    })
 
     const getHighestId = async () => {
         const cookies = parseCookies()
@@ -56,7 +69,14 @@ const AppProvider = ({children}) => {
         cancelReplyCommentHandler,
         getHighestIdComment,
         setGetHighestIdComment,
-        getHighestId
+        getHighestId,
+        currentPath,
+        userFilterButton,
+        setUserFilterButton,
+        postsLoading,
+        setPostsLoading,
+        usersLoading,
+        setUsersLoading
     }
 
     return (

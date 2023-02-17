@@ -9,9 +9,10 @@
         --bg-hover: rgb(26, 24, 35);
         --text-primary: #fff;
         --text-secondary: #ccc;
+        --header-primary: rgb(54, 90, 246);
         --text-third: #899096;
         --border-primary: #222;
-        --border-secondary: #777
+        --border-secondary: #777;
     }
 
     body {
@@ -32,5 +33,9 @@
 @layer utilities {
     .sticky-nav {
         transition-timing-function: ease;
+    }
+
+    .active {
+        @apply relative after:block after:absolute after:-bottom-[14px] after:w-[8px] after:left-0 after:right-0 after:mx-auto after:rounded-full after:h-[8px] after:bg-header-primary
     }
 }

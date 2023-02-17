@@ -1,7 +1,5 @@
-import { useRef, useState } from "react"
+import { useState } from "react"
 import Image from "next/image"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
 import { UseAppContext } from "@/context/AppContext"
 
 export default function Replies({data: {comment, token, currentUser, i}}){
@@ -56,7 +54,6 @@ export default function Replies({data: {comment, token, currentUser, i}}){
      }
 
      function replyFormHanlder(e, replies){
-        console.log(context.replyFormElement.current)
         context.replyFormElement.current.map(reply => {
             if(reply.id == comment.id){
                 reply.querySelector("form").classList.remove("hidden")
@@ -81,7 +78,7 @@ export default function Replies({data: {comment, token, currentUser, i}}){
             <div className="space-y-4 mt-4">
             {repliesApi.map(reply => {
                 return (
-                    <div className="flex gap-2">
+                    <div key={reply.id} className="flex gap-2">
                         <div className="relative z-10 w-[30px] h-[30px] rounded-full overflow-hidden">
                             <Image alt="user" src={reply.attributes.user.data.attributes.image.data ? reply.attributes.user.data.attributes.image.data.attributes.url : "/profile-default.png"} fill className="object-cover" />
                         </div>
